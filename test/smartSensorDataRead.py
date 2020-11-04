@@ -53,6 +53,7 @@ def write_VB(client, offset, data):
         client.db_write(1, offset, bytes.fromhex(temp))
         print("向寄存器VB" + str(offset) + "写入" + str(data) + "成功")
 
+
 def sleep_time(hour, min, sec):
     return hour * 3600 + min * 60 + sec
 
@@ -82,12 +83,13 @@ def con_DB(host, pot, user, password, Db, id, temp, query):
 
 
 if __name__ == '__main__':
-    temp = random.randint(20, 30)
-    con_DB('localhost', 8086, 'ren', '123456', 'temdb', 1, temp, 'select * from test;')
-
+    # 访问plc取数据
     client_fd = plc_connect('192.168.2.1', 2)
     print("connect success")
     # write_VB(client_fd, 2, "8")
     data = read_VB(client_fd, 2)
     print(data)
     plc_con_close(client_fd)
+    # 数据存入influxDB
+    temp = random.randint(20, 30)
+    con_DB('localhost', 8086, 'ren', '123456', 'temdb', 1, temp, 'select * from test;')
