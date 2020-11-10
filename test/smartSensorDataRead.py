@@ -1,6 +1,7 @@
+import struct
+
 from influxdb import InfluxDBClient
 import time
-import random
 import snap7
 
 
@@ -60,36 +61,43 @@ def sleep_time(hour, min, sec):
 
 def con_DB(host, pot, user, password, Db, id, temp, query):
     client = InfluxDBClient(host, pot, user, password, Db)
-    clientList = client.get_list_database()
+    clientList = client.get_list_database
     print(clientList)
 
     # 写入数据库
-    second = sleep_time(0, 0, 2)
-    while True:
-        temJson = [{
-            "measurement": 'test',
-            "tags": {
-                'id': id,
-            },
-            "fields": {
-                'temp': temp,
-            }
-        }]
-        time.sleep(second)
-        client.write_points(temJson)
-        result = client.query(query)
-        print("Result: {0}".format(result))
-        temp = random.randint(20, 30)
+    temJson = [{
+        "measurement": 'test',
+        "tags": {
+            'id': id,
+        },
+        "fields": {
+            'temp': temp,
+        }
+    }]
+    client.write_points(temJson)
+    result = client.query(query)
+    print("Result: {0}".format(result))
 
 
 if __name__ == '__main__':
     # 访问plc取数据
     client_fd = plc_connect('192.168.2.1', 2)
     print("connect success")
-    # write_VB(client_fd, 2, "8")
-    data = read_VB(client_fd, 2)
-    print(data)
+
+    # 每5s读取温度数据并写入influxDb
+    second = sleep_time(0, 0, 5)
+    while True:
+        # 获取PLC中数据所在位VD200-VD204
+        data = client_fd.read_area(0x84, 1, 200, 4)
+        print(data)
+        # 数据转换为浮点数
+        data1 = snap7.util.get_real(data, 0)
+        print(data1)
+        # 数据转换为浮点数
+        data2 = struct.unpack(">f", data)
+        print("当前温度{}", data2[0])
+        time.sleep(second)
+        # 数据存入influxDB（database：temdb，measurement：test）
+        con_DB('localhost', 8086, 'root', '123456', 'temdb', 1, data1, 'select * from test;')
+
     plc_con_close(client_fd)
-    # 数据存入influxDB
-    temp = random.randint(20, 30)
-    con_DB('localhost', 8086, 'ren', '123456', 'temdb', 1, temp, 'select * from test;')
