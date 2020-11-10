@@ -1,5 +1,4 @@
 import struct
-
 from influxdb import InfluxDBClient
 import time
 import snap7
@@ -59,13 +58,24 @@ def sleep_time(hour, min, sec):
     return hour * 3600 + min * 60 + sec
 
 
-def con_DB(host, pot, user, password, Db, id, temp, query):
+def con_DbInsert(host, pot, user, password, Db, id, temp, query):
+    """
+    :param host: localhost
+    :param pot: 8086
+    :param user:
+    :param password:
+    :param Db:
+    :param id: id
+    :param temp: 采集传入温度
+    :param query:'select * from test;'
+    :return:
+    """
     client = InfluxDBClient(host, pot, user, password, Db)
     clientList = client.get_list_database
     print(clientList)
 
     # 写入数据库
-    temJson = [{
+    tempJson = [{
         "measurement": 'test',
         "tags": {
             'id': id,
@@ -74,7 +84,7 @@ def con_DB(host, pot, user, password, Db, id, temp, query):
             'temp': temp,
         }
     }]
-    client.write_points(temJson)
+    client.write_points(tempJson)
     result = client.query(query)
     print("Result: {0}".format(result))
 
@@ -90,14 +100,14 @@ if __name__ == '__main__':
         # 获取PLC中数据所在位VD200-VD204
         data = client_fd.read_area(0x84, 1, 200, 4)
         print(data)
-        # 数据转换为浮点数
+        # 数据转换为浮点数1
         data1 = snap7.util.get_real(data, 0)
         print(data1)
-        # 数据转换为浮点数
+        # 数据转换为浮点数2
         data2 = struct.unpack(">f", data)
         print("当前温度{}", data2[0])
         time.sleep(second)
         # 数据存入influxDB（database：temdb，measurement：test）
-        con_DB('localhost', 8086, 'root', '123456', 'temdb', 1, data1, 'select * from test;')
+        con_DbInsert('localhost', 8086, 'root', '123456', 'temdb', 1, data1, 'select * from test;')
 
     plc_con_close(client_fd)
