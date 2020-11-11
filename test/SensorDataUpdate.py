@@ -104,7 +104,7 @@ if __name__ == '__main__':
     second = sleep_time(0, 0, 5)
     while True:
         # 从VD200开始读取4位，并转换为浮点数
-        data = read_VB(200, 4)
+        data = read_VD(200, 4)
         time.sleep(second)
         # 数据存入influxDB（database：temdb，measurement：test）
         conn = con_DB('localhost', 8086, 'root', '123456', 'temdb')
