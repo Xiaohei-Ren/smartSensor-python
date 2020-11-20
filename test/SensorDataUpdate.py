@@ -1,8 +1,10 @@
 # coding: utf-8
 # Author：renyuke
 # Date ：2020/11/11 9:49
-
+import socket
 import struct
+
+import null as null
 from influxdb import InfluxDBClient
 import time
 import snap7
@@ -71,9 +73,11 @@ def con_DB(host, pot, user, password, Db):
     return InfluxClient
 
 
-def DB_Insert(InfluxClient, id, temp, query):
+def DB_Insert(InfluxClient, host, id, temp, state, query):
     """
     插入数据
+    :param state:
+    :param host:
     :param InfluxClient:
     :param id:
     :param temp:温度
@@ -84,10 +88,12 @@ def DB_Insert(InfluxClient, id, temp, query):
     tempJson = [{
         "measurement": 'test',
         "tags": {
-            'id': id,
+            'host': host,
         },
         "fields": {
-            'temp': temp,
+            'id': id,
+            'value': temp,
+            'status': state,
         }
     }]
     InfluxClient.write_points(tempJson)
@@ -105,7 +111,16 @@ if __name__ == '__main__':
     while True:
         # 从VD200开始读取4位，并转换为浮点数
         data = read_VD(200, 4)
+
+        if data != null:
+            state = 1
+        else:
+            state = 0
+
         time.sleep(second)
         # 数据存入influxDB（database：temdb，measurement：test）
-        conn = con_DB('localhost', 8086, 'root', '123456', 'temdb')
-        DB_Insert(conn, 1, data, 'select * from test;')
+        hostname = socket.gethostname()
+        # 获取本机IP
+        ip = socket.gethostbyname(hostname)
+        conn = con_DB('121.196.147.234', 8086, 'root', '123456', 'test')
+        DB_Insert(conn, ip, 1, data, state, 'select * from test;')
