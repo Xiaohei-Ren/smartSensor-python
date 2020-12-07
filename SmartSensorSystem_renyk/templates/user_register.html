@@ -206,10 +206,10 @@
                                     <li>
                                         <h5>Hi, John</h5>
                                     </li>
-                                    <li><a href="javascript:void(0)"><i class="ti-user m-r-5"></i> Profile</a></li>
+                                    <li><a href="/user_info/"><i class="ti-user m-r-5"></i> Profile</a></li>
                                     <li><a href="javascript:void(0)"><i class="ti-settings m-r-5"></i> Settings</a></li>
                                     <li><a href="javascript:void(0)"><i class="ti-lock m-r-5"></i> Lock screen</a></li>
-                                    <li><a href="javascript:void(0)"><i class="ti-power-off m-r-5"></i> Logout</a></li>
+                                    <li><a href="/logout/"><i class="ti-power-off m-r-5"></i> Logout</a></li>
                                 </ul>
                             </li>
 
@@ -356,7 +356,7 @@
                                     <li><a href="page-starter.html">Starter Page</a></li>
                                     <li><a href="page-login.html">Login</a></li>
                                     <li><a href="page-register.html">Register</a></li>
-                                    <li><a href="page-logout.html">Logout</a></li>
+                                    <li><a href="user-logout.html">Logout</a></li>
                                     <li><a href="page-recoverpw.html">Recover Password</a></li>
                                     <li><a href="page-lock-screen.html">Lock Screen</a></li>
                                     <li><a href="page-confirm-mail.html">Confirm Mail</a></li>
@@ -369,7 +369,7 @@
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-gift"></i><span> Extras </span> <span class="menu-arrow"></span></a>
                                 <ul class="list-unstyled">
-                                    <li><a href="extras-profile.html">Profile</a></li>
+                                    <li><a href="user_info.html">Profile</a></li>
                                     <li><a href="extras-sitemap.html">Sitemap</a></li>
                                     <li><a href="extras-about.html">About Us</a></li>
                                     <li><a href="extras-contact.html">Contact</a></li>
@@ -443,18 +443,8 @@
                         <div class="row">
 							<div class="col-xs-12">
 								<div class="page-title-box">
-                                    <h4 class="page-title">Form elements </h4>
-                                    <ol class="breadcrumb p-0 m-0">
-                                        <li>
-                                            <a href="#">Zircos</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Forms </a>
-                                        </li>
-                                        <li class="active">
-                                            Form elements
-                                        </li>
-                                    </ol>
+                                    <h4 class="page-title" >用户管理</h4>
+
                                     <div class="clearfix"></div>
                                 </div>
 							</div>
@@ -467,7 +457,9 @@
                                 <div class="card-box">
                                     <div class="row">
                         				<div class="col-md-6 m-t-50">
-                        					<h4 class="m-t-0 header-title" style="font-size: 30px"><b>注册</b></h4>
+                        					<h4 class="m-t-0 header-title" style="font-size: 30px"><b>注册</b>&ensp;
+                                                <i class="fa fa-spin fa-circle-o-notch" style="width: auto;height: auto; line-height: 1px; margin-right: 10px;"></i>
+                                            </h4>
                         					<p class="text-muted m-b-30 font-13">
 
                                                 Sign in<br><br>
@@ -481,31 +473,41 @@
                                                     <div class="alert alert-warning">{{ message }}</div>
                                                 {% endif %}
 	                                            <div class="form-group">
-	                                                <label class="col-sm-3 control-label">{{ register_form.username.label_tag }}</label>
+	                                                <label class="col-sm-3 control-label">
+                                                        <i class="glyphicon glyphicon-user"></i>&ensp;&ensp;&ensp;
+                                                        {{ register_form.username.label_tag }}</label>
 	                                                <div class="col-sm-9">
 	                                                  {{ register_form.username}}
 	                                                </div>
 	                                            </div>
 	                                            <div class="form-group">
-	                                                <label class="col-sm-3 control-label">{{ register_form.password1.label_tag }}</label>
+	                                                <label class="col-sm-3 control-label">
+                                                        <i class="glyphicon glyphicon-lock"></i>&ensp;&ensp;&ensp;&ensp;&ensp;
+                                                        {{ register_form.password1.label_tag }}</label>
 	                                                <div class="col-sm-9">
 	                                                  {{ register_form.password1 }}
 	                                                </div>
 	                                            </div>
                                                 <div class="form-group">
-	                                                <label class="col-sm-3 control-label">{{ register_form.password2.label_tag }}</label>
+	                                                <label class="col-sm-3 control-label">
+                                                        <i class="glyphicon glyphicon-ok"></i>&ensp;
+                                                        {{ register_form.password2.label_tag }}</label>
 	                                                <div class="col-sm-9">
 	                                                  {{ register_form.password2 }}
 	                                                </div>
 	                                            </div>
                                                 <div class="form-group">
-	                                                <label class="col-sm-3 control-label">{{ register_form.email.label_tag }}</label>
+	                                                <label class="col-sm-3 control-label">
+                                                        <i class="glyphicon glyphicon-envelope"></i>&ensp;
+                                                        {{ register_form.email.label_tag }}</label>
 	                                                <div class="col-sm-9">
 	                                                  {{ register_form.email }}
 	                                                </div>
 	                                            </div>
                                                 <div class="form-group">
-	                                                <label class="col-sm-3 control-label">{{ register_form.phone_number.label_tag }}</label>
+	                                                <label class="col-sm-3 control-label">
+                                                        <i class="glyphicon glyphicon-phone"></i>&ensp;
+                                                        {{ register_form.phone_number.label_tag }}</label>
 	                                                <div class="col-sm-9">
 	                                                  {{ register_form.phone_number }}
 	                                                </div>
@@ -514,7 +516,7 @@
 	                                                <div class="col-sm-offset-3 col-sm-9">
 	                                                  <button type="submit" class="btn btn-info waves-effect waves-light">注册</button>
                                                         <a href="/login/">
-                                                            <button type="button" class="btn btn-info waves-effect waves-light">前往登录</button>
+                                                            <button type="button" class="btn btn-info waves-effect waves-light">取消</button>
                                                         </a>
 	                                                </div>
 	                                            </div>
