@@ -43,7 +43,7 @@
 
                 <!-- LOGO -->
                 <div class="topbar-left">
-                    <a href="index.html" class="logo"><span>Zir<span>cos</span></span><i class="mdi mdi-layers"></i></a>
+                    <a href="/test/" class="logo"><span>IS<span>MP</span></span><i class="mdi mdi-layers"></i></a>
                     <!-- Image logo -->
                     <!--<a href="index.html" class="logo">-->
                         <!--<span>-->
@@ -204,12 +204,12 @@
 
                                 <ul class="dropdown-menu dropdown-menu-right arrow-dropdown-menu arrow-menu-right user-list notify-list">
                                     <li>
-                                        <h5>Hi, John</h5>
+                                        <h5>Hi, {{ names.name }}</h5>
                                     </li>
-                                    <li><a href="/user_info/"><i class="ti-user m-r-5"></i> Profile</a></li>
+                                    <li><a href="/user_info/"><i class="ti-user m-r-5"></i> 个人中心</a></li>
                                     <li><a href="javascript:void(0)"><i class="ti-settings m-r-5"></i> Settings</a></li>
                                     <li><a href="javascript:void(0)"><i class="ti-lock m-r-5"></i> Lock screen</a></li>
-                                    <li><a href="/logout/"><i class="ti-power-off m-r-5"></i> Logout</a></li>
+                                    <li><a href="/logout/"><i class="ti-power-off m-r-5"></i> 登出</a></li>
                                 </ul>
                             </li>
 
@@ -231,11 +231,7 @@
                         	<li class="menu-title">Navigation</li>
 
                             <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-view-dashboard"></i><span class="label label-success pull-right">2</span> <span> Dashboard </span> </a>
-                                <ul class="list-unstyled">
-                                    <li><a href="index.html">Dashboard 1</a></li>
-                                    <li><a href="/test1/">Dashboard 2</a></li>
-                                </ul>
+                                <a href="/test/" class="waves-effect"><i class="mdi mdi-view-dashboard"></i><span class="label label-success pull-right">2</span> <span> Dashboard </span> </a>
                             </li>
 
                             <li class="has_sub">
@@ -400,15 +396,11 @@
                             </li>
 
                             <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-home-map-marker"></i><span> Real Estate </span> <span class="menu-arrow"></span></a>
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-home-map-marker"></i><span> 用户管理 </span> <span class="menu-arrow"></span></a>
                                 <ul class="list-unstyled">
-                                    <li><a href="real-estate-dashboard.html">Dashboard</a></li>
-                                    <li><a href="real-estate-list.html">Property List</a></li>
-                                    <li><a href="real-estate-column.html">Property Column</a></li>
-                                    <li><a href="real-estate-detail.html">Property Detail</a></li>
-                                    <li><a href="real-estate-agents.html">Agents</a></li>
-                                    <li><a href="real-estate-profile.html">Agent Details</a></li>
-                                    <li><a href="real-estate-add.html">Add Property</a></li>
+                                    <li><a href="/login/">登录</a></li>
+                                    <li><a href="/register/">注册</a></li>
+                                    <li><a href="/user_info/">个人中心</a></li>
                                 </ul>
                             </li>
 
@@ -462,7 +454,7 @@
                                             </h4>
                         					<p class="text-muted m-b-30 font-13">
 
-                                                Sign in<br><br>
+                                                Register<br><br>
 												欢迎注册智能传感器管理系统！系统仅限管理员进行注册，请输入相关信息完成注册<br>
                                                 Welcome to register smart sensor management system! The system is only for administrators to register. Please enter the relevant information to complete the registration
 											</p>

@@ -23,6 +23,8 @@ urlpatterns = [
     path('login/', user_view.login),
     path('register/', user_view.register),
     path('user_info/', user_view.info),
-    path('logout/', user_view.logout)
+    path('logout/', user_view.logout),
+    path('test/', user_view.test),
+    path('', user_view.test),
     # path('sensor_manage/', include('app_sensor_manage.urls')),
 ]
