@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>数据可视化</title>
+		<link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/static/css/app.css" />
+        <script src="/static/jquery-3.5.1.min.js"></script>
+        <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
+	</head>
+
+	<body class="bg01">
+		<header class="header">
+			<h3>XXX加氢站</h3>
+		</header>
+
+		<div class="wrapper">
+			<div class="container-fluid">
+				<div class="row fill-h">
+					<div class="col-lg-3 fill-h">
+						<div class="xpanel-wrapper xpanel-wrapper-2">
+							<div class="xpanel">
+								<div class="fill-h" style="color:white"> </div>
+							</div>
+						</div>
+						<div class="xpanel-wrapper xpanel-wrapper-2">
+							<div class="xpanel">
+								<div class="fill-h" style="color:white"> </div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 fill-h">
+						<div class="xpanel-wrapper xpanel-wrapper-4">
+							<div class="xpanel">
+								<div class="fill-h"><img src="/static/img/map_a.png" height="auto" width="100%"></div>
+							</div>
+						</div>
+                        <div class="xpanel-wrapper xpanel-wrapper-5">
+							<div class="xpanel">
+								<div class="fill-h" style="color: white"> </div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 fill-h">
+						<div class="xpanel-wrapper xpanel-wrapper-3">
+							<div class="xpanel">
+								<div class="fill-h" id="gauge"></div>
+							</div>
+						</div>
+						<div class="xpanel-wrapper xpanel-wrapper-3">
+							<div class="xpanel">
+								<div class="fill-h" id="line"></div>
+							</div>
+						</div>
+						<div class="xpanel-wrapper xpanel-wrapper-3">
+							<div class="xpanel">
+								<div class="fill-h" id="bar"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        <script>console.log(document.getElementById('line'))</script>
+        <script>
+        var chart = echarts.init(document.getElementById('line'), 'white', {renderer: 'canvas'});
+        var chart_gauge = echarts.init(document.getElementById('gauge'), 'white', {renderer: 'canvas'});
+        var chart_bar = echarts.init(document.getElementById('bar'), 'white', {renderer: 'canvas'});
+        var old_data = [];
+        var old_data_gauge = [];
+        var old_data_bar = [];
+
+        $(
+            function () {
+                fetchData();
+                setInterval(fetchData, 5000);
+            }
+        );
+
+        function fetchData() {
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/line",
+                dataType: "json",
+                success: function (result) {
+                    var options = result.data;
+                    chart.setOption(options);
+                    old_data = chart.getOption().series[0].data;
+                }
+            });
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/gauge",
+                dataType: "json",
+                success: function (result) {
+                    var options = result.data;
+                    chart_gauge.setOption(options);
+                    old_data_gauge = chart_gauge.getOption().series[0].data;
+                }
+            });
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/bar",
+                dataType: "json",
+                success: function (result) {
+                    var options = result.data;
+                    chart_bar.setOption(options);
+                    old_data_bar = chart_bar.getOption().series[0].data;
+                }
+            });
+        }
+
+        function getDynamicData() {
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/lineUpdate",
+                dataType: 'json',
+                success: function (result) {
+                    var options = result.data;
+                    old_data.push([options.name, options.value]);
+                    chart.setOption({
+                        series: [{
+                            data: old_data
+                        }]
+                    });
+                }
+            });
+        }
+
+    </script>
+	</body>
+</html>

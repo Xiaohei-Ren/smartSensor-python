@@ -43,7 +43,7 @@ def login(request):
                 current_user.save()
 
                 models.User.objects.filter(name=username).update(last_login_time=timezone.now())
-                return redirect('/user_info/')
+                return redirect('/dashboard/')
             else:
                 message = '密码不正确！'
                 return render(request, 'user_login.html', locals())
@@ -157,7 +157,7 @@ def logout(request):
     logout_recode.update_time = timezone.now()
     logout_recode.save()
     message = '登出成功！'
-    return render(request, 'user-logout.html', locals())
+    return render(request, 'user_logout.html', locals())
 
 
 def info(request):
@@ -203,3 +203,7 @@ def test(request):
         message = '未登录，请登录！'
         return render(request, 'user_login.html', locals())
     return render(request, "dashboard_2.html")
+
+
+def base(request):
+    return render(request, "base.html")
