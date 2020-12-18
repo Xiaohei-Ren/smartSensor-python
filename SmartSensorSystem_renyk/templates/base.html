@@ -9,7 +9,7 @@
         <!-- App favicon -->
         <link rel="shortcut icon" href="../static/assets/images/favicon.ico">
         <!-- App title -->
-        <title>Zircos - Responsive Admin Dashboard Template</title>
+        <title>ISMP - Intelligent sensor device management platform</title>
 
         <!-- date range picker -->
         <link href="../static/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
@@ -32,8 +32,8 @@
         <![endif]-->
 
         <script src="../static/assets/js/modernizr.min.js"></script>
-
         <script type="text/javascript" src="../static/assets/js/echarts.min.js"></script>
+        <script src="../static/echarts-liquidfill.js"></script>
 
     </head>
 
@@ -229,19 +229,20 @@
                             <li class="menu-title"><strong>设备管理</strong></li>
 
                             <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-view-list"></i><span> 传感器列表 </span> <span class="menu-arrow"></span></a>
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-access-point"></i><span> 传感器管理 </span> <span class="menu-arrow"></span></a>
                                 <ul class="list-unstyled">
-                                    <li><a href="/sensor_detail/">温度传感器</a></li>
-                                    <li><a href="chart-morris.html">压力传感器</a></li>
-                                    <li><a href="chart-google.html">流量传感器</a></li>
-                                    <li><a href="chart-chartist.html">浓度传感器</a></li>
-                                    <li><a href="charts.html">质量传感器</a></li>
-                                    <li><a href="chart-c3.html">智能电表</a></li>
+                                    <li><a href="/sensor_list_temp/">温度传感器</a></li>
+                                    <li><a href="/sensor_list_pre/">压力传感器</a></li>
+                                    <li><a href="/sensor_list_flow/">流量传感器</a></li>
+                                    <li><a href="/sensor_list_con/">浓度传感器</a></li>
+                                    <li><a href="/sensor_list_ele/">智能电表</a></li>
+                                    <li><a href="/sensor_add/">新增传感器</a></li>
+                                    <li><a href="/sensor_list/">传感器列表</a></li>
                                 </ul>
                             </li>
 
                             <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-gas-station"></i> <span> 加氢设备列表 </span> <span class="menu-arrow"></span></a>
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-gas-station"></i> <span> 加氢设备管理 </span> <span class="menu-arrow"></span></a>
                                 <ul class="list-unstyled">
                                 	<li><a href="maps-google.html">压缩机</a></li>
                                     <li><a href="maps-vector.html">储氢罐</a></li>
@@ -250,7 +251,7 @@
                                 </ul>
                             </li>
                             <li class="has_sub">
-                                <a href="#" class="waves-effect"><i class="mdi mdi-wrench"></i><span class="label label-success pull-right"></span> <span> 设备控制 </span> </a>
+                                <a href="#" class="waves-effect"><i class="mdi mdi-wrench"></i><span class="label label-success pull-right"></span> <span> 设备控制管理 </span> </a>
                             </li>
 
                             <li class="menu-title"><strong>平台管理</strong></li>
@@ -258,8 +259,7 @@
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-comment-text-outline"></i><span> 平台管理 </span> <span class="menu-arrow"></span></a>
                                 <ul class="list-unstyled">
-                                    <li><a href="blogs-dashboard.html">平台配置</a></li>
-                                    <li><a href="blogs-blog-list.html">平台日志</a></li>
+                                    <li><a href="/admin/">后台管理</a></li>
                                 </ul>
                             </li>
 
@@ -403,7 +403,6 @@
         <!-- App js -->
         <script src="../static/assets/js/jquery.core.js"></script>
         <script src="../static/assets/js/jquery.app.js"></script>
-        <script>console.log(document.getElementById('line'))</script>
 
         {% block javascript %}
 

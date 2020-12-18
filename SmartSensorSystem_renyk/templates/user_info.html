@@ -79,7 +79,7 @@
                                                                     <span class="m-l-15"><strong>设备名：</strong></span>
                                                                     <span class="m-l-15">xxx</span>
                                                                     <span class="m-l-15"><strong>时间：</strong></span>
-                                                                    <span class="m-l-15">{{ login_recode.update_time }}</span>
+{#                                                                    <span class="m-l-15">{{ login_recode.update_time }}</span>#}
                                                                     <br/>
                                                                     <span class="m-l-15"><strong>备注：</strong></span>
                                                                     <span class="m-l-15">xxx</span>
@@ -119,37 +119,37 @@
 
 
 
-                                                <div class="col-md-4 col-sm-6">
-                                                    <h4>用户信息记录</h4>
-                                                    <div class=" p-t-10">
+{#                                                <div class="col-md-4 col-sm-6">#}
+{#                                                    <h4>用户信息记录</h4>#}
+{#                                                    <div class=" p-t-10">#}
+{##}
+{#                                                        <p class="m-b-0"></p>#}
+{#                                                        <p><b>登录记录</b></p>#}
+{##}
+{#                                                        <p class="text-muted font-13 m-b-0">#}
+{#                                                            {% for login_recode in login_recodes %}#}
+{#                                                                <p class="text-muted font-13"><strong>时间：</strong>#}
+{#                                                                    <span class="m-l-15">{{ login_recode.update_time }}</span>#}
+{#                                                                </p>#}
+{#                                                            {% endfor %}#}
+{#                                                        </p>#}
+{#                                                    </div>#}
+{##}
+{#                                                    <hr/>#}
 
-                                                        <p class="m-b-0"></p>
-                                                        <p><b>登录记录</b></p>
-
-                                                        <p class="text-muted font-13 m-b-0">
-                                                            {% for login_recode in login_recodes %}
-                                                                <p class="text-muted font-13"><strong>时间：</strong>
-                                                                    <span class="m-l-15">{{ login_recode.update_time }}</span>
-                                                                </p>
-                                                            {% endfor %}
-                                                        </p>
-                                                    </div>
-
-                                                    <hr/>
-
-                                                    <div class="p-t-10">
-                                                        <h5 class="text-custom m-b-5"></h5>
-                                                        <p class="m-b-0"></p>
-                                                        <p><b>登出记录</b></p>
-
-                                                        <p class="text-muted font-13 m-b-0">
-                                                            {% for logout_recode in logout_recodes %}
-                                                                <p class="text-muted font-13"><strong>时间：</strong>
-                                                                    <span class="m-l-15">{{ logout_recode.update_time }}</span>
-                                                                </p>
-                                                            {% endfor %}
-                                                        </p>
-                                                    </div>
+{#                                                    <div class="p-t-10">#}
+{#                                                        <h5 class="text-custom m-b-5"></h5>#}
+{#                                                        <p class="m-b-0"></p>#}
+{#                                                        <p><b>登出记录</b></p>#}
+{##}
+{#                                                        <p class="text-muted font-13 m-b-0">#}
+{#                                                            {% for logout_recode in logout_recodes %}#}
+{#                                                                <p class="text-muted font-13"><strong>时间：</strong>#}
+{#                                                                    <span class="m-l-15">{{ logout_recode.update_time }}</span>#}
+{#                                                                </p>#}
+{#                                                            {% endfor %}#}
+{#                                                        </p>#}
+{#                                                    </div>#}
 
                                                     <hr/>
 

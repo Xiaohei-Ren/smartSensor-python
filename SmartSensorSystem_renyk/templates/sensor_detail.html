@@ -30,28 +30,28 @@
                                                     </div>
 
                                                     <div class="">
-                                                        <h4 class="m-t-0 header-title">温度传感器01</h4>
-                                                        <p class="text-muted">TS01</p>
+                                                        <h4 class="m-t-0 header-title">{{ sensor.name }}</h4>
+                                                        <p class="text-muted">{{ sensor.sensor_id }}</p>
                                                     </div>
 
                                                     <hr/>
                                                     <h5><strong>详细信息</strong></h5>
                                                     <div class="text-left">
-                                                        <p class="text-muted font-13"><strong>编号:&ensp;&ensp;&ensp;&ensp;</strong> <span class="m-l-15">TS01</span></p>
+                                                        <p class="text-muted font-13"><strong>编号:&ensp;&ensp;&ensp;&ensp;</strong> <span class="m-l-15">{{ sensor.sensor_id }}</span></p>
 
-                                                        <p class="text-muted font-13"><strong>名称:&ensp;&ensp;&ensp;&ensp;</strong> <span class="m-l-15">温度传感器01</span></p>
+                                                        <p class="text-muted font-13"><strong>名称:&ensp;&ensp;&ensp;&ensp;</strong> <span class="m-l-15">{{ sensor.name }}</span></p>
 
-                                                        <p class="text-muted font-13"><strong>型号:&ensp;&ensp;&ensp;&ensp;</strong> <span class="m-l-15">XHTS-001</span></p>
+                                                        <p class="text-muted font-13"><strong>类别:&ensp;&ensp;&ensp;&ensp;</strong> <span class="m-l-15">{{ sensor.sort }}</span></p>
 
-                                                        <p class="text-muted font-13"><strong>所在位置:</strong> <span class="m-l-15">压缩机进气管道</span></p>
+                                                        <p class="text-muted font-13"><strong>所在位置:</strong> <span class="m-l-15">{{ sensor.location }}</span></p>
 
-                                                        <p class="text-muted font-13"><strong>创建时间:</strong> <span class="m-l-15">{{ names.last_login_time }}</span></p>
+                                                        <p class="text-muted font-13"><strong>创建时间:</strong> <span class="m-l-15">{{ sensor.create_time }}</span></p>
 
-                                                        <p class="text-muted font-13"><strong>变更时间:</strong> <span class="m-l-15">{{ names.role }}</span></p>
+                                                        <p class="text-muted font-13"><strong>变更时间:</strong> <span class="m-l-15">{{ sensor.last_login_time }}</span></p>
 
-                                                        <p class="text-muted font-13"><strong>备注:&ensp;&ensp;&ensp;&ensp;</strong> <span class="m-l-15"></span></p>
+                                                        <p class="text-muted font-13"><strong>备注:&ensp;&ensp;&ensp;&ensp;</strong> <span class="m-l-15">{{ sensor.comment }}</span></p>
 
-                                                        <p class="text-muted font-13"><strong>当前状态:</strong> <span class="m-l-15">在线</span></p>
+                                                        <p class="text-muted font-13"><strong>当前状态:</strong> <span class="m-l-15">{{ sensor.status }}</span></p>
                                                     </div>
 
                                                 </div>

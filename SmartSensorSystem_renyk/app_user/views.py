@@ -17,10 +17,12 @@ def login(request):
     if request.method == 'POST':
         login_form = forms.UserForm(request.POST)
         message = '请检查填写的内容！'
+        if request.session.get('is_login', None):
+            message = '不能重复登录！'
+            return render(request, 'user_login.html', locals())
         if login_form.is_valid():
             username = login_form.cleaned_data.get('username')
             password = login_form.cleaned_data.get('password')
-
             # 数据验证
             try:
                 user = models.User.objects.get(name=username, delete=0)
@@ -28,29 +30,18 @@ def login(request):
                 message = '用户不存在！'
                 return render(request, 'user_login.html', locals())
             if user.password == hash_code(password):
-                # request.session['is_login'] = True
-                # request.session['user_id'] = user.id
-                # request.session['user_name'] = user.name
                 # session写入
-                current_user_now = models.CurrentUser.objects.filter(login=1)
-                if current_user_now:
-                    message = '不能重复登录！'
-                    return render(request, 'user_login.html', locals())
-                current_user = models.CurrentUser()
-                current_user.user_no = user.id
-                current_user.update_time = timezone.now()
-                current_user.login = 1
-                current_user.save()
-
+                request.session['is_login'] = True
+                request.session['user_id'] = user.id
+                request.session['user_name'] = user.name
+                request.session['user_role'] = user.role
                 models.User.objects.filter(name=username).update(last_login_time=timezone.now())
-                return redirect('/dashboard/')
+                return redirect('/test/')
             else:
                 message = '密码不正确！'
                 return render(request, 'user_login.html', locals())
         else:
-
             return render(request, 'user_login.html', locals())
-
     login_form = forms.UserForm()
     return render(request, 'user_login.html', locals())
 
@@ -62,20 +53,10 @@ def register(request):
     :return:
     """
     login_form = forms.UserForm()
-    try:
-        current_user = models.CurrentUser.objects.get(login=1)
-    except:
-        message = '未登录，请登录后进行注册!'
+    if not request.session.get('is_login', None):
+        message = '未登录，请登录！'
         return render(request, 'user_login.html', locals())
-
-    current_user_id = current_user.user_no
-    names = models.User.objects.get(id=current_user_id)
-
-    current_user = models.CurrentUser.objects.get(login=1)
-    current_user_no = current_user.user_no
-    current_user = models.User.objects.get(id=current_user_no)
-    current_user_role = current_user.role
-    if current_user_role != 'admin':
+    if not request.session['user_role'] == 'admin':
         message = '无注册新用户权限，权限请使用管理员账号登录后注册!'
         return render(request, 'user_login.html', locals())
     if request.method == 'POST':
@@ -88,7 +69,7 @@ def register(request):
             email = register_form.cleaned_data.get('email')
             phone_number = register_form.cleaned_data.get('phone_number')
             role = '普通用户'
-
+            # 参数校验
             res = re.match('^[a-zA-Z]\w{5,17}$', password1)
             if not res:
                 message = '格式必须为：以字母开头，长度在6~18之间，只能包含字符、数字和下划线！'
@@ -105,7 +86,6 @@ def register(request):
                 if same_email_user:
                     message = '该邮箱已经被注册了！'
                     return render(request, 'user_register.html', locals())
-
                 res = re.match('1[3|4|5|7|8][0-9]\d{8}', phone_number)
                 if not res:
                     message = '手机号格式错误！'
@@ -114,7 +94,7 @@ def register(request):
                 if same_phone_number_user:
                     message = '该电话号码已经被注册！'
                     return render(request, 'user_register.html', locals())
-
+                # 执行事务
                 new_user = models.User()
                 new_user.name = username
                 new_user.password = hash_code(password1)
@@ -123,7 +103,6 @@ def register(request):
                 new_user.role = role
                 new_user.create_time = timezone.now()
                 new_user.save()
-
                 return redirect('/login/')
         else:
             return render(request, 'user_register.html', locals())
@@ -138,25 +117,10 @@ def logout(request):
     :return:
     """
     login_form = forms.UserForm()
-    try:
-        current_user = models.CurrentUser.objects.get(login=1)
-    except:
+    if not request.session.get('is_login', None):
         message = '未登录，请登录！'
         return render(request, 'user_login.html', locals())
-
-    current_user_id = current_user.user_no
-    names = models.User.objects.get(id=current_user_id)
-
-    current_user_now = models.CurrentUser.objects.get(login=1)
-    current_user_now.login = 0
-    current_user_now.save()
-
-    logout_recode = models.CurrentUser()
-    logout_recode.user_no = current_user.user_no
-    logout_recode.logout = 1
-    logout_recode.update_time = timezone.now()
-    logout_recode.save()
-    message = '登出成功！'
+    request.session.flush()
     return render(request, 'user_logout.html', locals())
 
 
@@ -167,18 +131,11 @@ def info(request):
     :return:
     """
     login_form = forms.UserForm()
-    try:
-        current_user = models.CurrentUser.objects.get(login=1)
-    except:
+    if not request.session.get('is_login', None):
         message = '未登录，请登录！'
         return render(request, 'user_login.html', locals())
-    current_user_id = current_user.user_no
+    current_user_id = request.session['user_id']
     names = models.User.objects.get(id=current_user_id)
-
-    login_recodes = models.CurrentUser.objects.filter(user_no=current_user_id, logout=0)[:5]
-
-    logout_recodes = models.CurrentUser.objects.filter(user_no=current_user_id, logout=1)[:5]
-
     return render(request, 'user_info.html', locals())
 
 
@@ -196,14 +153,9 @@ def hash_code(s, salt='login'):
 
 
 def test(request):
-    login_form = forms.UserForm()
-    try:
-        current_user = models.CurrentUser.objects.get(login=1)
-    except:
-        message = '未登录，请登录！'
-        return render(request, 'user_login.html', locals())
+    """
+    dashboard主页
+    :param request:
+    :return:
+    """
     return render(request, "dashboard_2.html")
-
-
-def base(request):
-    return render(request, "base.html")

@@ -19,6 +19,7 @@ from django.urls import path, include
 from app_dashboard import views as dashboard_view
 from app_user import views as user_view
 from app_sensor_visual import views as sensor_view
+from app_sensor_manage import views as sensor_manage_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', user_view.login),
@@ -30,9 +31,17 @@ urlpatterns = [
     url(r'^line/$', dashboard_view.ChartView.as_view()),
     url(r'^gauge/$', dashboard_view.GaugeView.as_view()),
     url(r'^bar/$', dashboard_view.BarView.as_view()),
+    url(r'^liquid/$', dashboard_view.LiquidView.as_view()),
+    url(r'^liquid_1/$', dashboard_view.LiquidView_1.as_view()),
+    url(r'^graph/$', dashboard_view.GraphView.as_view()),
     url(r'^lineUpdate/$', dashboard_view.ChartUpdateView.as_view()),
     url(r'^dashboard/$', dashboard_view.IndexView.as_view()),
-    path('sensor_detail/', sensor_view.sensor_detail),
-    path('base/', user_view.base),
-    # path('sensor_manage/', include('app_sensor_manage.urls')),
+    url(r'^sensor_detail/(\d+)', sensor_view.sensor_detail),
+    path('sensor_add/', sensor_manage_view.add),
+    path('sensor_list/', sensor_manage_view.sensor_list),
+    path('sensor_list_temp/', sensor_manage_view.temp_sensor_list),
+    path('sensor_list_pre/', sensor_manage_view.pre_sensor_list),
+    path('sensor_list_flow/', sensor_manage_view.flow_sensor_list),
+    path('sensor_list_con/', sensor_manage_view.con_sensor_list),
+    path('sensor_list_ele/', sensor_manage_view.ele_sensor_list),
 ]

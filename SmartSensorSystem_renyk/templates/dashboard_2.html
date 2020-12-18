@@ -20,7 +20,7 @@
                         <div class="row">
 
                             <div class="col-lg-3 col-md-6">
-                                <a href="/sensor_detail/">
+                                <a href="/sensor_list_temp/">
                                     <div class="card-box widget-box-two widget-two-primary">
                                     <i class="mdi mdi-thermometer widget-two-icon"></i>
                                     <div class="wigdet-two-content">
@@ -33,7 +33,7 @@
                             </div><!-- end col -->
 
                             <div class="col-lg-3 col-md-6">
-                                <a href="#">
+                                <a href="/sensor_list_pre/">
                                     <div class="card-box widget-box-two widget-two-warning">
                                     <i class="mdi mdi-gas-cylinder widget-two-icon"></i>
                                     <div class="wigdet-two-content">
@@ -46,7 +46,7 @@
                             </div><!-- end col -->
 
                             <div class="col-lg-3 col-md-6">
-                                <a href="#">
+                                <a href="/sensor_list_flow/">
                                     <div class="card-box widget-box-two widget-two-danger">
                                     <i class="mdi mdi-access-point-network widget-two-icon"></i>
                                     <div class="wigdet-two-content">
@@ -60,7 +60,7 @@
                             </div><!-- end col -->
 
                             <div class="col-lg-3 col-md-6">
-                                <a href="#">
+                                <a href="/sensor_list_con/">
                                     <div class="card-box widget-box-two widget-two-success">
                                     <i class="mdi mdi-gauge widget-two-icon"></i>
                                     <div class="wigdet-two-content">
@@ -78,15 +78,37 @@
 
 
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-9">
                                 <h4 class="m-t-0 header-title">实时温度</h4>
                                 <div class="card-box" id="line" style="width: auto; height:400px;">
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-3">
                                 <h4 class="m-t-0 header-title">实时压力</h4>
-                                <div class="card-box" id="gauge" style="width: auto; height:400px;">
+                                    <div class="card-box" id="gauge" style="width: auto; height:400px;">
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- end row -->
+
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <h4 class="m-t-0 header-title">设备监控</h4>
+                                <div class="card-box" id="liquid" style="width: auto; height:400px;">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <h4 class="m-t-0 header-title">设备关系</h4>
+                                <div class="card-box" id="graph" style="width: auto; height:400px;">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <h4 class="m-t-0 header-title">设备监控</h4>
+                                <div class="card-box" id="liquid_1" style="width: auto; height:400px;">
                                 </div>
                             </div>
 
@@ -104,15 +126,24 @@
 <script>
         var chart = echarts.init(document.getElementById('line'), 'white', {renderer: 'canvas'});
         var chart_gauge = echarts.init(document.getElementById('gauge'), 'white', {renderer: 'canvas'});
+        var chart_liquid  = echarts.init(document.getElementById('liquid'), 'white', {renderer: 'canvas'});
+        var chart_liquid_1  = echarts.init(document.getElementById('liquid_1'), 'white', {renderer: 'canvas'});
+        var chart_graph  = echarts.init(document.getElementById('graph'), 'white', {renderer: 'canvas'});
         var old_data = [];
         var old_data_gauge = [];
+        var old_data_liquid = [];
+        var old_data_liquid_1 = [];
+        var old_data_graph = [];
 
         $(
             function () {
                 fetchData();
+                noRefresh();
                 setInterval(fetchData, 5000);
             }
+
         );
+
 
         function fetchData() {
             $.ajax({
@@ -135,7 +166,40 @@
                     old_data_gauge = chart_gauge.getOption().series[0].data;
                 }
             });
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/liquid",
+                dataType: "json",
+                success: function (result) {
+                    var options = result.data;
+                    chart_liquid.setOption(options);
+                    old_data_liquid = chart_liquid.getOption().series[0].data;
+                }
+            });
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/liquid_1",
+                dataType: "json",
+                success: function (result) {
+                    var options = result.data;
+                    chart_liquid_1.setOption(options);
+                    old_data_liquid_1 = chart_liquid_1.getOption().series[0].data;
+                }
+            });
 
+        }
+
+        function noRefresh() {
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/graph",
+                dataType: "json",
+                success: function (result) {
+                    var options = result.data;
+                    chart_graph.setOption(options);
+                    old_data_graph = chart_graph.getOption().series[0].data;
+                }
+            });
         }
 
         function getDynamicData() {
