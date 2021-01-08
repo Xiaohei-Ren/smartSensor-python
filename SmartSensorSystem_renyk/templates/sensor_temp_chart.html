@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Start content -->
+    <div class="content">
+                    <div class="container">
+
+
+                        <div class="row">
+							<div class="col-xs-12">
+								<div class="page-title-box">
+                                    <h4 class="page-title">实时温度趋势 </h4>
+                                    <div class="clearfix"></div>
+                                </div>
+							</div>
+						</div>
+                        <!-- end row -->
+
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="card-box" id="line" style="width: auto; height:600px;">
+                                        </div>
+
+                        			</div>
+
+                                    <!-- end row -->
+
+
+
+                                </div>
+                        </div>
+                        <!-- end row -->
+
+
+                    </div> <!-- container -->
+
+                </div>
+    <!-- content -->
+{% endblock content %}
+
+{% block javascript %}
+<script>
+        var chart = echarts.init(document.getElementById('line'), 'white', {renderer: 'canvas'});
+        var old_data = [];
+        $(
+            function () {
+                fetchData();
+                setInterval(fetchData, 5000);
+            }
+
+        );
+
+
+        function fetchData() {
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/line",
+                dataType: "json",
+                success: function (result) {
+                    var options = result.data;
+                    chart.setOption(options);
+                    old_data = chart.getOption().series[0].data;
+                }
+            });
+
+        }
+    </script>
+{% endblock javascript %}

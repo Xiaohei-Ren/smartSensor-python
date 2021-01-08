@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Start content -->
+    <div class="content">
+                    <div class="container">
+
+
+                        <div class="row">
+							<div class="col-xs-12">
+								<div class="page-title-box">
+                                    <h4 class="page-title" >用户管理</h4>
+
+                                    <div class="clearfix"></div>
+                                </div>
+							</div>
+						</div>
+                        <!-- end row -->
+
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card-box">
+                                    <div class="row">
+                        				<div class="col-md-6 m-t-50">
+                        					<h4 class="m-t-0 header-title" style="font-size: 30px"><b>注册</b>&ensp;
+                                                <i class="fa fa-spin fa-circle-o-notch" style="width: auto;height: auto; line-height: 1px; margin-right: 10px;"></i>
+                                            </h4>
+                        					<p class="text-muted m-b-30 font-13">
+
+                                                Register<br><br>
+												欢迎注册智能传感器管理系统！系统仅限管理员进行注册，请输入相关信息完成注册<br>
+                                                Welcome to register smart sensor management system! The system is only for administrators to register. Please enter the relevant information to complete the registration
+											</p>
+
+											<form class="form-horizontal" action="/register/" method="post">
+                                                {% csrf_token %}
+                                                {% if message %}
+                                                    <div class="alert alert-warning">{{ message }}</div>
+                                                {% endif %}
+	                                            <div class="form-group">
+	                                                <label class="col-sm-3 control-label">
+                                                        <i class="glyphicon glyphicon-user"></i>&ensp;&ensp;&ensp;
+                                                        {{ register_form.username.label_tag }}</label>
+	                                                <div class="col-sm-9">
+	                                                  {{ register_form.username}}
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label class="col-sm-3 control-label">
+                                                        <i class="glyphicon glyphicon-lock"></i>&ensp;&ensp;&ensp;&ensp;&ensp;
+                                                        {{ register_form.password1.label_tag }}</label>
+	                                                <div class="col-sm-9">
+	                                                  {{ register_form.password1 }}
+	                                                </div>
+	                                            </div>
+                                                <div class="form-group">
+	                                                <label class="col-sm-3 control-label">
+                                                        <i class="glyphicon glyphicon-ok"></i>&ensp;
+                                                        {{ register_form.password2.label_tag }}</label>
+	                                                <div class="col-sm-9">
+	                                                  {{ register_form.password2 }}
+	                                                </div>
+	                                            </div>
+                                                <div class="form-group">
+	                                                <label class="col-sm-3 control-label">
+                                                        <i class="glyphicon glyphicon-envelope"></i>&ensp;
+                                                        {{ register_form.email.label_tag }}</label>
+	                                                <div class="col-sm-9">
+	                                                  {{ register_form.email }}
+	                                                </div>
+	                                            </div>
+                                                <div class="form-group">
+	                                                <label class="col-sm-3 control-label">
+                                                        <i class="glyphicon glyphicon-phone"></i>&ensp;
+                                                        {{ register_form.phone_number.label_tag }}</label>
+	                                                <div class="col-sm-9">
+	                                                  {{ register_form.phone_number }}
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group m-b-0">
+	                                                <div class="col-sm-offset-3 col-sm-9">
+	                                                  <button type="submit" class="btn btn-info waves-effect waves-light">注册</button>
+                                                        <a href="/login/">
+                                                            <button type="button" class="btn btn-info waves-effect waves-light">取消</button>
+                                                        </a>
+	                                                </div>
+	                                            </div>
+	                                        </form>
+                        				</div>
+                        			</div>
+
+                                    <!-- end row -->
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+
+
+                    </div> <!-- container -->
+
+                </div> <!-- content -->
+{% endblock content %}

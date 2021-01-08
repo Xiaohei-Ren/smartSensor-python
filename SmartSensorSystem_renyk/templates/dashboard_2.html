@@ -1,0 +1,283 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Start content -->
+    <div class="content">
+                    <div class="container">
+
+
+                        <div class="row">
+							<div class="col-xs-12">
+								<div class="page-title-box" style="height: 55px">
+                                    <h4 class="page-title">数据平台</h4>
+                                    <div class="clearfix"></div>
+                                </div>
+							</div>
+						</div>
+                        <!-- end row -->
+
+
+                        <div class="row">
+
+                            <div class="col-lg-3 col-md-6">
+                                <a href="/sensor_list_temp/">
+                                    <div class="card-box widget-box-two widget-two-primary">
+                                    <i class="mdi mdi-thermometer widget-two-icon"></i>
+                                    <div class="wigdet-two-content">
+                                        <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="Statistics">温度传感器</p>
+                                        <h2><span data-plugin="counterup" >{{ temp_sensor_online }}</span><span style="font-size: 15px">/ {{ temp_sensor }} </span> <small><i class="mdi mdi-information-outline text-success"></i></small></h2>
+                                        <p class="text-muted m-0"><b>UpdateTime:</b> {{ time_now }}</p>
+                                    </div>
+                                </div>
+                                </a>
+                            </div><!-- end col -->
+
+                            <div class="col-lg-3 col-md-6">
+                                <a href="/sensor_list_pre/">
+                                    <div class="card-box widget-box-two widget-two-warning">
+                                    <i class="mdi mdi-gas-cylinder widget-two-icon"></i>
+                                    <div class="wigdet-two-content">
+                                        <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="User This Month">压力传感器</p>
+                                        <h2><span data-plugin="counterup">{{ pre_sensor_online }} </span><span style="font-size: 15px">/ {{ pre_sensor }} </span> <small><i class="mdi mdi-information-outline text-success"></i></small></h2>
+                                        <p class="text-muted m-0"><b>UpdateTime:</b> {{ time_now }}</p>
+                                    </div>
+                                </div>
+                                </a>
+                            </div><!-- end col -->
+
+                            <div class="col-lg-3 col-md-6">
+                                <a href="/sensor_list_flow/">
+                                    <div class="card-box widget-box-two widget-two-danger">
+                                    <i class="mdi mdi-access-point-network widget-two-icon"></i>
+                                    <div class="wigdet-two-content">
+                                        <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="Statistics">流量传感器</p>
+                                        <h2><span data-plugin="counterup">{{ flow_sensor_online }}</span><span style="font-size: 15px">/ {{ flow_sensor }} </span> <small><i class="mdi mdi-information-outline text-success"></i></small></h2>
+                                        <p class="text-muted m-0"><b>UpdateTime:</b> {{ time_now }}</p>
+                                    </div>
+                                </div>
+                                </a>
+
+                            </div><!-- end col -->
+
+                            <div class="col-lg-3 col-md-6">
+                                <a href="/sensor_list_con/">
+                                    <div class="card-box widget-box-two widget-two-success">
+                                    <i class="mdi mdi-gauge widget-two-icon"></i>
+                                    <div class="wigdet-two-content">
+                                        <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="User Today">浓度传感器</p>
+                                            <h2><span data-plugin="counterup">{{ con_sensor_online }} </span><span style="font-size: 15px">/ {{ con_sensor }} </span> <small><i class="mdi mdi-information-outline text-success"></i></small></h2>
+                                        <p class="text-muted m-0"><b>UpdateTime:</b> {{ time_now }}</p>
+                                    </div>
+                                </div>
+                                </a>
+
+                            </div><!-- end col -->
+
+                        </div>
+                        <!-- end row -->
+
+
+                        <div class="row">
+                            <div class="col-lg-6">
+{#                                <h4 class="m-t-0 header-title">实时温度趋势</h4>#}
+                                <a href="/sensor_temp_chart/">
+                                    <div class="card-box" id="line" style="width: auto; height:300px;">
+                                    </div>
+                                </a>
+
+                            </div>
+
+                            <div class="col-lg-6">
+{#                                <h4 class="m-t-0 header-title">实时压力趋势</h4>#}
+                                <div class="card-box" id="line_1" style="width: auto; height:300px;">
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- end row -->
+
+                        <div class="row">
+
+                            <div class="col-lg-4">
+{#                                <h4 class="m-t-0 header-title">实时压力</h4>#}
+                                <div class="card-box" style="height: 300px;">
+                                    <div id="gauge" style="width:300px; height:290px; float: left;">
+                                    </div>
+                                    <div style="width: 10px; border-left: 2px solid #f3f3f3"></div>
+                                    <div style="width: 180px; height: 250px; float: right; font-size: 15px; border-left: 2px solid #f3f3f3">
+                                        <div style="margin-left: 20px">
+                                            <p>实时压力：40Mpa</p>
+                                            <br>
+                                            <p>平均压力：70Mpa</p>
+                                            <br>
+                                            <p>最高压力：90Mpa</p>
+                                            <br>
+                                            <p>最低压力：30Mpa</p>
+                                            <br>
+                                            <p>压力报警： 无</p>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-4">
+{#                                <h4 class="m-t-0 header-title">设备监控</h4>#}
+                                <div class="card-box" style="height: 300px;">
+                                    <div id="liquid" style="width:280px; height:280px; float: left">
+                                    </div>
+                                    <div style="width: 200px; height: 250px; float: right; font-size: 15px; border-left: 2px solid #f3f3f3">
+                                        <div style="margin-left: 20px" >
+                                            <p>高压储罐压力：40.1Mpa</p>
+                                            <br>
+                                            <p>高压储罐温度：23.4℃</p>
+                                            <br>
+                                            <p>中压储罐压力：30.2Mpa</p>
+                                            <br>
+                                            <p>高压储罐温度：22.2℃</p>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+{#                                <h4 class="m-t-0 header-title">设备监控</h4>#}
+                                <div class="card-box" style="height: 300px;">
+                                    <div id="liquid_1" style="width:280px; height:280px; float: left">
+                                    </div>
+                                    <div style="width: 200px; height: 250px; float: right; font-size: 15px; border-left: 2px solid #f3f3f3">
+                                        <div style="margin-left: 20px" >
+                                            <p>工作状态：待机</p>
+                                            <br>
+                                            <p>进气压力：30.5Mpa</p>
+                                            <br>
+                                            <p>出口压力：50.2Mpa</p>
+                                            <br>
+                                            <p>出口温度：22.2℃</p>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+
+
+                            <div class="col-lg-4">
+{#                                <h4 class="m-t-0 header-title">设备监控</h4>#}
+                                <div class="card-box" id="graph" style="width: auto; height:300px;">
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- end row -->
+
+
+                    </div> <!-- container -->
+
+                </div>
+    <!-- content -->
+{% endblock content %}
+
+{% block javascript %}
+<script>
+        var chart = echarts.init(document.getElementById('line'), 'white', {renderer: 'canvas'});
+        var chart_line = echarts.init(document.getElementById('line_1'), 'white', {renderer: 'canvas'});
+        var chart_gauge = echarts.init(document.getElementById('gauge'), 'white', {renderer: 'canvas'});
+        var chart_liquid  = echarts.init(document.getElementById('liquid'), 'white', {renderer: 'canvas'});
+        var chart_liquid_1  = echarts.init(document.getElementById('liquid_1'), 'white', {renderer: 'canvas'});
+        var chart_graph  = echarts.init(document.getElementById('graph'), 'white', {renderer: 'canvas'});
+        var old_data = [];
+        var old_data_line = [];
+        var old_data_gauge = [];
+        var old_data_liquid = [];
+        var old_data_liquid_1 = [];
+        var old_data_graph = [];
+
+        $(
+            function () {
+                fetchData();
+                noRefresh();
+                setInterval(fetchData, 5000);
+            }
+
+        );
+
+
+        function fetchData() {
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/line",
+                dataType: "json",
+                success: function (result) {
+                    var options = result.data;
+                    chart.setOption(options);
+                    old_data = chart.getOption().series[0].data;
+                }
+            });
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/line_1",
+                dataType: "json",
+                success: function (result) {
+                    var options = result.data;
+                    chart_line.setOption(options);
+                    old_data_line = chart_line.getOption().series[0].data;
+                }
+            });
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/gauge",
+                dataType: "json",
+                success: function (result) {
+                    var options = result.data;
+                    chart_gauge.setOption(options);
+                    old_data_gauge = chart_gauge.getOption().series[0].data;
+                }
+            });
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/liquid",
+                dataType: "json",
+                success: function (result) {
+                    var options = result.data;
+                    chart_liquid.setOption(options);
+                    old_data_liquid = chart_liquid.getOption().series[0].data;
+                }
+            });
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/liquid_1",
+                dataType: "json",
+                success: function (result) {
+                    var options = result.data;
+                    chart_liquid_1.setOption(options);
+                    old_data_liquid_1 = chart_liquid_1.getOption().series[0].data;
+                }
+            });
+
+        }
+
+        function noRefresh() {
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/graph",
+                dataType: "json",
+                success: function (result) {
+                    var options = result.data;
+                    chart_graph.setOption(options);
+                    old_data_graph = chart_graph.getOption().series[0].data;
+                }
+            });
+        }
+
+    </script>
+{% endblock javascript %}

@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Start content -->
+    <div class="content">
+                    <div class="container">
+
+
+                        <div class="row">
+							<div class="col-xs-12">
+								<div class="page-title-box">
+                                    <h4 class="page-title">用户信息 </h4>
+
+                                    <div class="clearfix"></div>
+                                </div>
+							</div>
+						</div>
+                        <!-- end row -->
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card-box">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4">
+                                            <div class="text-center card-box">
+                                                <div class="member-card">
+                                                    <div class="thumb-xl member-thumb m-b-10 center-block">
+                                                        <img src="../static/assets/images/users/avatar-1.jpg" class="img-circle img-thumbnail" alt="profile-image">
+                                                        <i class="mdi mdi-star-circle member-star text-success" title="verified user"></i>
+                                                    </div>
+
+                                                    <div class="">
+                                                        <h4 class="m-b-5">{{ names.name }}</h4>
+                                                        <p class="text-muted">{{ names.role }}</p>
+                                                    </div>
+
+                                                    <hr/>
+                                                    <h5><strong>详细信息</strong></h5>
+                                                    <div class="text-left">
+                                                        <p class="text-muted font-13"><strong>编号:&ensp;&ensp;&ensp;&ensp;</strong> <span class="m-l-15">{{ names.id }}</span></p>
+
+                                                        <p class="text-muted font-13"><strong>姓名:&ensp;&ensp;&ensp;&ensp;</strong> <span class="m-l-15">{{ names.name }}</span></p>
+
+                                                        <p class="text-muted font-13"><strong>电话号码:</strong><span class="m-l-15">{{ names.phone_number }}</span></p>
+
+                                                        <p class="text-muted font-13"><strong>邮箱:&ensp;&ensp;&ensp;&ensp;</strong> <span class="m-l-15">{{ names.email }}</span></p>
+
+                                                        <p class="text-muted font-13"><strong>注册时间:</strong> <span class="m-l-15">{{ names.create_time }}</span></p>
+
+                                                        <p class="text-muted font-13"><strong>最近登录:</strong> <span class="m-l-15">{{ names.last_login_time }}</span></p>
+
+                                                        <p class="text-muted font-13"><strong>操作权限:</strong> <span class="m-l-15">{{ names.role }}</span></p>
+                                                    </div>
+
+                                                </div>
+
+                                            </div> <!-- end card-box -->
+
+                                        </div> <!-- end col -->
+
+                                        <div class="col-md-8 col-lg-9">
+                                            <h4><strong>操作记录</strong></h4>
+
+
+                                            <hr/>
+
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6">
+                                                    <h4>设备操作记录</h4>
+                                                <h5 class="text-custom m-b-5"></h5>
+                                                    <div class=" p-t-10">
+
+                                                        <p class="m-b-0"></p>
+                                                        <p><b>新增设备</b></p>
+
+                                                        <p class="text-muted font-13 m-b-0">
+                                                            {% for login_recode in login_recodes %}
+                                                                <p class="text-muted font-13">
+                                                                    <span class="m-l-15"><strong>设备名：</strong></span>
+                                                                    <span class="m-l-15">xxx</span>
+                                                                    <span class="m-l-15"><strong>时间：</strong></span>
+{#                                                                    <span class="m-l-15">{{ login_recode.update_time }}</span>#}
+                                                                    <br/>
+                                                                    <span class="m-l-15"><strong>备注：</strong></span>
+                                                                    <span class="m-l-15">xxx</span>
+                                                                </p>
+
+                                                            {% endfor %}
+                                                        </p>
+                                                    </div>
+
+                                                    <hr/>
+
+                                                    <div class="p-t-10" style="height: 20px">
+                                                        <h5 class="text-custom m-b-5"></h5>
+                                                        <p class="m-b-0"></p>
+                                                        <p><b>变更设备</b></p>
+
+                                                        <p class="text-muted font-13 m-b-0" id="test">
+
+                                                        </p>
+                                                    </div>
+
+
+                                                    <hr/>
+
+                                                    <div class="p-t-10" >
+                                                        <h5 class="text-custom m-b-5"></h5>
+                                                        <p class="m-b-0"></p>
+                                                        <p><b>删除设备</b></p>
+
+                                                        <p class="text-muted font-13 m-b-0">
+
+                                                        </p>
+                                                    </div>
+
+                                                    <hr/>
+                                                </div> <!-- end col -->
+
+                                                    <hr/>
+
+                                                </div> <!-- end col -->
+                                            </div> <!-- end row -->
+                                        </div>
+                                        <!-- end col -->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End row -->
+
+
+
+                    </div> <!-- container -->
+
+                </div> <!-- content -->
+{% endblock content %}
+
+{% block javascript %}
+    <script>
+
+    $(
+        function () {
+            DataTest();
+            clear();
+            setInterval(DataTest, 50000)
+            setInterval(clear, 50000)
+        }
+    )
+
+    function DataTest(){
+        $.getJSON({% url 'test' %}, function (a) {
+            $("#test").append(a)
+        })
+    }
+
+    function clear() {
+        $("#test").empty()
+    }
+    </script>
+{% endblock javascript %}

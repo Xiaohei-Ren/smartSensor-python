@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Start content -->
+<div class="content">
+                    <div class="container">
+
+
+                        <div class="row">
+							<div class="col-xs-12">
+								<div class="page-title-box">
+                                    <h4 class="page-title">传感器详细信息</h4>
+
+                                    <div class="clearfix"></div>
+                                </div>
+							</div>
+						</div>
+                        <!-- end row -->
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card-box">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4">
+                                            <div class="text-center card-box">
+                                                <div class="member-card">
+                                                    <div class="thumb-xl member-thumb m-b-10 center-block">
+                                                        <img src="../static/assets/images/users/avatar-1.jpg" class="img-circle img-thumbnail" alt="profile-image">
+                                                        <i class="mdi mdi-thermometer member-star text-success" title="verified user"></i>
+                                                    </div>
+
+                                                    <div class="">
+                                                        <h4 class="m-t-0 header-title">{{ sensor.name }}</h4>
+                                                        <p class="text-muted">{{ sensor.sensor_id }}</p>
+                                                    </div>
+
+                                                    <hr/>
+                                                    <div class="text-left">
+                                                        <p class="text-muted font-13"><strong>编号:&ensp;&ensp;&ensp;&ensp;</strong> <span class="m-l-15">{{ sensor.sensor_id }}</span></p>
+
+                                                        <p class="text-muted font-13"><strong>名称:&ensp;&ensp;&ensp;&ensp;</strong> <span class="m-l-15">{{ sensor.name }}</span></p>
+
+                                                        <p class="text-muted font-13"><strong>类别:&ensp;&ensp;&ensp;&ensp;</strong> <span class="m-l-15">{{ sensor.sort }}</span></p>
+
+                                                        <p class="text-muted font-13"><strong>所在位置:</strong> <span class="m-l-15">{{ sensor.location }}</span></p>
+
+                                                        <p class="text-muted font-13"><strong>创建时间:</strong> <span class="m-l-15">{{ sensor.create_time }}</span></p>
+
+                                                        <p class="text-muted font-13"><strong>变更时间:</strong> <span class="m-l-15">{{ sensor.last_login_time }}</span></p>
+
+                                                        <p class="text-muted font-13"><strong>备注:&ensp;&ensp;&ensp;&ensp;</strong> <span class="m-l-15">{{ sensor.comment }}</span></p>
+
+                                                        <p class="text-muted font-13"><strong>当前状态:</strong> <span class="m-l-15">{{ sensor.status }}</span></p>
+                                                    </div>
+
+                                                </div>
+
+                                            </div> <!-- end card-box -->
+
+                                        </div> <!-- end col -->
+
+                                        <div class="col-md-8 col-lg-9">
+
+{#                                            <h4><strong>实时数据</strong>&nbsp;<i class="mdi mdi-chart-areaspline" ></i></h4>#}
+
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="card-box" id="line" style="width: auto; height:330px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+{#                                            <h4><strong>历史数据</strong>&nbsp;<i class="mdi mdi-chart-areaspline" ></i></h4>#}
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="card-box" id="line_1" style="width: auto; height:350px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr/>
+                                            <h4><strong>报警记录</strong>&nbsp;<i class="mdi mdi-alert-outline" ></i></h4>
+
+
+                                        </div>
+                                        <!-- end col -->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End row -->
+
+
+
+                    </div> <!-- container -->
+
+                </div> <!-- content -->
+{% endblock content %}
+
+{% block javascript %}
+<script>
+        var chart = echarts.init(document.getElementById('line'), 'white', {renderer: 'canvas'});
+        var chart_line = echarts.init(document.getElementById('line_1'), 'white', {renderer: 'canvas'});
+        var old_data = [];
+        var old_data_line = [];
+
+        $(
+            function () {
+                fetchData();
+                staticData();
+                setInterval(fetchData, 5000);
+            }
+        );
+
+        function fetchData() {
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/line_now",
+                dataType: "json",
+                success: function (result) {
+                    var options = result.data;
+                    chart.setOption(options);
+                    old_data = chart.getOption().series[0].data;
+                }
+            });
+
+        }
+
+        function staticData() {
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/line_his",
+                dataType: "json",
+                success: function (result) {
+                    var options = result.data;
+                    chart_line.setOption(options);
+                    old_data_line = chart_line.getOption().series[0].data;
+                }
+            });
+        }
+
+    </script>
+{% endblock javascript %}
