@@ -99,47 +99,47 @@
                         <div class="row">
 
                             <div class="col-lg-4">
+{#                                <h4 class="m-t-0 header-title">设备监控</h4>#}
+                                <div class="card-box" style="height: 300px;">
+                                    <div id="liquid" style="width:300px; height:290px; float: left">
+                                    </div>
+                                    <div style="width: 10px; border-left: 2px solid #f3f3f3"></div>
+                                    <div style="width: 180px; height: 250px; float: right; font-size: 14px; border-left: 2px solid #f3f3f3">
+                                        <div style="margin-left: 20px; margin-top: 10px; font-family: impact, sans-serif;font-size: 14px;letter-spacing: 0.4pt;word-spacing: 6.2pt;">
+                                            <div id="h_p"></div>
+                                            <br>
+                                            <div id="h_t"></div>
+                                            <br>
+                                            <div id="h_a"></div>
+                                            <hr>
+                                            <div id="l_p"></div>
+                                            <br>
+                                            <div id="l_t"></div>
+                                            <br>
+                                            <div id="l_a"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
 {#                                <h4 class="m-t-0 header-title">实时压力</h4>#}
                                 <div class="card-box" style="height: 300px;">
                                     <div id="gauge" style="width:300px; height:290px; float: left;">
                                     </div>
                                     <div style="width: 10px; border-left: 2px solid #f3f3f3"></div>
-                                    <div style="width: 180px; height: 250px; float: right; font-size: 15px; border-left: 2px solid #f3f3f3">
-                                        <div style="margin-left: 20px">
-                                            <p>实时压力：40Mpa</p>
+                                    <div style="width: 180px; height: 250px; float: right; font-size: 14px; border-left: 2px solid #f3f3f3">
+                                        <div style="margin-left: 30px; margin-top: 10px; font-family: impact, sans-serif;font-size: 14px;letter-spacing: 0.4pt;word-spacing: 6.2pt;">
+                                            <div id="p_n"></div>
                                             <br>
-                                            <p>平均压力：70Mpa</p>
+                                            <div id="p_a"></div>
                                             <br>
-                                            <p>最高压力：90Mpa</p>
+                                            <div id="p_max"></div>
                                             <br>
-                                            <p>最低压力：30Mpa</p>
+                                            <div id="p_min"></div>
                                             <br>
-                                            <p>压力报警： 无</p>
+                                            <div id="alert"></div>
                                         </div>
-
-
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="col-lg-4">
-{#                                <h4 class="m-t-0 header-title">设备监控</h4>#}
-                                <div class="card-box" style="height: 300px;">
-                                    <div id="liquid" style="width:280px; height:280px; float: left">
-                                    </div>
-                                    <div style="width: 200px; height: 250px; float: right; font-size: 15px; border-left: 2px solid #f3f3f3">
-                                        <div style="margin-left: 20px" >
-                                            <p>高压储罐压力：40.1Mpa</p>
-                                            <br>
-                                            <p>高压储罐温度：23.4℃</p>
-                                            <br>
-                                            <p>中压储罐压力：30.2Mpa</p>
-                                            <br>
-                                            <p>高压储罐温度：22.2℃</p>
-
-                                        </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -147,18 +147,17 @@
                             <div class="col-lg-4">
 {#                                <h4 class="m-t-0 header-title">设备监控</h4>#}
                                 <div class="card-box" style="height: 300px;">
-                                    <div id="liquid_1" style="width:280px; height:280px; float: left">
+                                    <div id="liquid_1" style="width:280px; height:290px; float: left">
                                     </div>
-                                    <div style="width: 200px; height: 250px; float: right; font-size: 15px; border-left: 2px solid #f3f3f3">
-                                        <div style="margin-left: 20px" >
-                                            <p>工作状态：待机</p>
+                                    <div style="width: 180px; height: 250px; float: right; font-size: 14px; border-left: 2px solid #f3f3f3">
+                                        <div style="margin-left: 30px; margin-top: 10px; font-family: impact, sans-serif;font-size: 14px;letter-spacing: 0.4pt;word-spacing: 6.2pt;">
+                                            <div id="p_i_a"></div>
                                             <br>
-                                            <p>进气压力：30.5Mpa</p>
+                                            <div id="p_o_a"></div>
                                             <br>
-                                            <p>出口压力：50.2Mpa</p>
+                                            <div id="t_o_a"></div>
                                             <br>
-                                            <p>出口温度：22.2℃</p>
-
+                                            <div id="s_a"></div>
                                         </div>
 
                                     </div>
@@ -173,7 +172,7 @@
 
                             <div class="col-lg-4">
 {#                                <h4 class="m-t-0 header-title">设备监控</h4>#}
-                                <div class="card-box" id="graph" style="width: auto; height:300px;">
+                                <div class="card-box" id="graph" style="width: auto; height:400px;">
                                 </div>
                             </div>
 
@@ -206,6 +205,7 @@
             function () {
                 fetchData();
                 noRefresh();
+                setInterval(predata, 5000);
                 setInterval(fetchData, 5000);
             }
 
@@ -265,6 +265,93 @@
             });
 
         }
+
+        function predata(){
+                $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/pre",
+                dataType: "json",
+                success: function (a) {
+                    p_n = '实时压力:\xa0'+ a['p_n'] + ' Mpa';
+                    p_a = '平均压力:\xa0'+ a["p_a"] + ' Mpa';
+                    p_max = '最高压力:\xa0'+ a["p_max"] + ' Mpa';
+                    p_min = '最低压力:\xa0'+ a["p_min"] + ' Mpa';
+                    al = '压力报警:\xa0' + a["alert"];
+                    $("#p_n").empty();
+                    $("#p_a").empty();
+                    $("#p_max").empty();
+                    $("#p_min").empty();
+                    $("#alert").empty();
+                    $("#p_n").append(p_n);
+                    $("#p_a").append(p_a);
+                    $("#p_max").append(p_max);
+                    $("#p_min").append(p_min);
+                    $("#alert").append(al);
+
+                }
+            });
+
+                $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/sto",
+                dataType: "json",
+                success: function (a) {
+                    h_p = '高压罐压力:\xa0'+ a['h_p'] + ' Mpa';
+                    h_t = '高压罐温度:\xa0'+ a["h_t"] + ' ℃';
+                    h_a = '高压罐报警:\xa0' + a["h_a"];
+                    l_p = '低压罐压力:\xa0'+ a["l_p"] + ' Mpa';
+                    l_t = '低压罐温度:\xa0'+ a["l_t"] + ' ℃';
+                    l_a = '低压罐报警:\xa0' + a["l_a"];
+                    $("#h_p").empty();
+                    $("#h_t").empty();
+                    $("#h_a").empty();
+                    $("#l_p").empty();
+                    $("#l_t").empty();
+                    $("#l_a").empty();
+                    $("#h_p").append(h_p);
+                    $("#h_t").append(h_t);
+                    $("#h_a").append(h_a);
+                    $("#l_p").append(l_p);
+                    $("#l_t").append(l_t);
+                    $("#l_a").append(l_a);
+
+                }
+            });
+
+                $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/com",
+                dataType: "json",
+                success: function (a) {
+                    p_i_a = '进口压力:\xa0'+ a['p_i_a'] + ' Mpa';
+                    p_o_a = '出口压力:\xa0'+ a["p_o_a"] + ' Mpa';
+                    t_o_a = '出口温度:\xa0' + a["t_o_a"] + ' ℃';
+                    s_a = '状态:\xa0'+ a["s_a"];
+                    p_i_b = '进口压力:\xa0'+ a['p_i_b'] + ' Mpa';
+                    p_o_b = '出口压力:\xa0'+ a["p_o_b"] + ' Mpa';
+                    t_o_b = '出口温度:\xa0' + a["t_o_b"] + ' ℃';
+                    s_b = '状态:\xa0'+ a["s_b"];
+                    $("#p_i_a").empty();
+                    $("#p_o_a").empty();
+                    $("#t_o_a").empty();
+                    $("#s_a").empty();
+                    $("#p_i_b").empty();
+                    $("#p_o_b").empty();
+                    $("#t_o_b").empty();
+                    $("#s_b").empty();
+                    $("#p_i_a").append(p_i_a);
+                    $("#p_o_a").append(p_o_a);
+                    $("#t_o_a").append(t_o_a);
+                    $("#s_a").append(s_a);
+                    $("#p_i_b").append(p_i_b);
+                    $("#p_o_b").append(p_o_b);
+                    $("#t_o_b").append(t_o_b);
+                    $("#s_b").append(s_b);
+
+                }
+            });
+        }
+
 
         function noRefresh() {
             $.ajax({

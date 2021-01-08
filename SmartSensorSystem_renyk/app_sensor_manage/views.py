@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from app_sensor_manage import forms as sensor_from
 from app_sensor_manage.models import Sensor
 from app_user import forms as user_form
+from app_dashboard import views as dashboard
 
 
 # Create your views here.
@@ -126,5 +127,32 @@ def test(request):
     try:
         name = request.session['user_name']
     finally:
-
         return JsonResponse(name, safe=False)
+
+
+def pressure_data(request):
+    (time_list_res, value_list_res) = dashboard.data_reader(1)
+    data = 0
+    pre_dict = {'p_n': 0, 'p_a': 0, 'p_max': 0, 'p_min': 0, 'alert': 0}
+    if not value_list_res == []:
+        data = value_list_res[-1]
+        pre_dict = {'p_n': data, 'p_a': 70.1, 'p_max': 90.2, 'p_min': 30.4, 'alert': 1}
+    return JsonResponse(pre_dict, safe=False)
+
+def storage_data(request):
+    (time_list_res, value_list_res) = dashboard.data_reader(1)
+    data = 0
+    storage = {'h_p': 0, 'h_t': 0, 'h_a': 0, 'l_p': 0, 'l_t': 0, 'l_a': 0,}
+    if not value_list_res == []:
+        data = value_list_res[-1]
+        storage = {'h_p': data, 'h_t': 28.2, 'h_a': 1, 'l_p': 30.1, 'l_t': 27.3, 'l_a': 0}
+    return JsonResponse(storage, safe=False)
+
+def comp_data(request):
+    (time_list_res, value_list_res) = dashboard.data_reader(1)
+    data = 0
+    com = {'p_i_a': 0, 'p_o_a': 0, 't_o_a': 0, 's_a': 0, 'p_i_b': 0, 'p_o_b': 0, 't_o_b': 0, 's_b': 0}
+    if not value_list_res == []:
+        data = value_list_res[-1]
+        com = {'p_i_a': data, 'p_o_a': data+1, 't_o_a': data, 's_a': 2, 'p_i_b': data, 'p_o_b': data+1, 't_o_b': data, 's_b': 1}
+    return JsonResponse(com, safe=False)

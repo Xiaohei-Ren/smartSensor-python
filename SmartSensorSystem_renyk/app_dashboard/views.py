@@ -56,13 +56,13 @@ def data_reader(id):
     """
     # influxDb查询语句（我崩溃了这个查询语句的引号真的辣鸡，参数查询还用不了）
     if id == 1:
-        query = 'select "time","id", "value" from sensor02 where id=1 AND time >=now()-48h;'
+        query = 'select "time","id", "value" from sensor03 where id=1 AND time >=now()-48h;'
     elif id == 2:
-        query = 'select "time","id", "value" from sensor02 where id=2 AND time >=now()-48h;'
+        query = 'select "time","id", "value" from sensor03 where id=2 AND time >=now()-48h;'
     elif id == 3:
-        query = 'select "time","id", "value" from sensor02 where id=3 AND time >=now()-48h;'
+        query = 'select "time","id", "value" from sensor03 where id=3 AND time >=now()-48h;'
     elif id == 4:
-        query = 'select "time","id", "value" from sensor02 where id=4 AND time >=now()-48h;'
+        query = 'select "time","id", "value" from sensor03 where id=4 AND time >=now()-48h;'
     Data = con_DB(query)
     # print(Data)
     points = Data.get_points()
@@ -190,7 +190,7 @@ def temp_line() -> Grid:
     c = (
         Line(init_opts=opts.InitOpts())
             .set_global_opts(
-            title_opts=opts.TitleOpts(title="实时温度趋势", title_textstyle_opts=opts.TextStyleOpts(color="#505458"),
+            title_opts=opts.TitleOpts(title="实时温度趋势", title_textstyle_opts=opts.TextStyleOpts(color="#505458", font_size=17),
                                       pos_top=0, pos_left=0, ),
             tooltip_opts=opts.TooltipOpts(is_show=True, trigger="axis", axis_pointer_type="cross"),
             legend_opts=opts.LegendOpts(is_show=True, selected_mode=False, item_height=15,
@@ -285,7 +285,7 @@ def temp_line2() -> Grid:
     c = (
         Line(init_opts=opts.InitOpts())
             .set_global_opts(
-            title_opts=opts.TitleOpts(title="实时压力趋势", title_textstyle_opts=opts.TextStyleOpts(color="#505458"),
+            title_opts=opts.TitleOpts(title="实时压力趋势", title_textstyle_opts=opts.TextStyleOpts(color="#505458", font_size=17),
                                       pos_top=0, pos_left=0, ),
             tooltip_opts=opts.TooltipOpts(is_show=True, trigger="axis", axis_pointer_type="cross"),
             legend_opts=opts.LegendOpts(is_show=True, selected_mode=False, item_height=15,
@@ -371,7 +371,7 @@ def temp_gauge() -> Gauge:
             title_label_opts=opts.GaugeTitleOpts(is_show=False, color="#9966FF"),
         )
             .set_global_opts(
-            title_opts=opts.TitleOpts(title="实时气压", title_textstyle_opts=opts.TextStyleOpts(color="#505458"),
+            title_opts=opts.TitleOpts(title="实时气压", title_textstyle_opts=opts.TextStyleOpts(color="#505458", font_size=17),
                                       pos_top=0, pos_left=0),
             legend_opts=opts.LegendOpts(is_show=False, selected_mode=False, item_height=15,
                                         pos_bottom=0,
@@ -434,7 +434,7 @@ def liquid() -> Grid:
             ),
         )
             .set_global_opts(
-            title_opts=opts.TitleOpts(title="储氢系统状态监控", title_textstyle_opts=opts.TextStyleOpts(color="#505458"),
+            title_opts=opts.TitleOpts(title="储氢系统状态监控", title_textstyle_opts=opts.TextStyleOpts(color="#505458", font_size=17),
                                       pos_top=0, pos_left=0), )
     )
 
@@ -453,7 +453,7 @@ def liquid() -> Grid:
         ),
     )
 
-    grid = Grid().add(l1, grid_opts=opts.GridOpts())#.add(l2, grid_opts=opts.GridOpts())
+    grid = Grid().add(l1, grid_opts=opts.GridOpts())  # .add(l2, grid_opts=opts.GridOpts())
     ch = grid.dump_options_with_quotes()
     return ch
 
@@ -496,11 +496,11 @@ def liquid_1() -> Grid:
             ),
         )
             .set_global_opts(
-            title_opts=opts.TitleOpts(title="压缩机系统状态监控", title_textstyle_opts=opts.TextStyleOpts(color="#505458"),
+            title_opts=opts.TitleOpts(title="压缩机A状态监控", title_textstyle_opts=opts.TextStyleOpts(color="#505458", font_size=17),
                                       pos_top=0, pos_left=0), )
     )
 
-    grid = Grid().add(l2, grid_opts=opts.GridOpts())#.add(l2, grid_opts=opts.GridOpts())
+    grid = Grid().add(l2, grid_opts=opts.GridOpts())  # .add(l2, grid_opts=opts.GridOpts())
     ch = grid.dump_options_with_quotes()
     return ch
 
@@ -538,7 +538,7 @@ def graph() -> Graph:
 
         )
             .set_global_opts(
-            title_opts=opts.TitleOpts(title="设备关系", title_textstyle_opts=opts.TextStyleOpts(color="#505458"),
+            title_opts=opts.TitleOpts(title="设备关系", title_textstyle_opts=opts.TextStyleOpts(color="#505458", font_size=17),
                                       pos_top=0, pos_left=0),
         )
             .dump_options_with_quotes()
@@ -643,3 +643,5 @@ def dashboard(request):
 
     # user = request.session['user_name']
     return render(request, "dashboard_2.html", locals())
+
+

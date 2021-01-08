@@ -48,6 +48,8 @@ urlpatterns = [
     path('sensor_list_ele/', sensor_manage_view.ele_sensor_list),
     path('sensor_temp_chart/', sensor_view.sensor_temp_chart),
     url(r'^test/$', sensor_manage_view.test, name='test'),
-
+    url(r'^pre/$', sensor_manage_view.pressure_data, name='pre'),
+    url(r'^sto/$', sensor_manage_view.storage_data, name='sto'),
+    url(r'^com/$', sensor_manage_view.comp_data, name='com'),
 
 ]
