@@ -87,7 +87,26 @@ DATABASES = {
         'PASSWORD': '123456',
         'HOST': '127.0.0.1',
         'PORT': '3306',
+    },
+    'his_data': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'hydrogenation_station_data',
+        'USER': 'hsuser',
+        'PASSWORD': 'a@123456',
+        'HOST': 'rm-bp1y3s613ztw9rrc42o.mysql.rds.aliyuncs.com',
+        'PORT': '3306',
     }
+}
+
+DATABASE_ROUTERS = ['SmartSensorSystem_renyk.database_router.DatabaseAppsRouter']
+
+DATABASE_APPS_MAPPING = {
+    # example:
+    # 'app_name':'database_name',
+    'app_dashboard': 'default',
+    'app_sensor_manage': 'default',
+    'app_sensor_visual': 'default',
+    'app_user': 'default',
 }
 
 # DATABASES = {
