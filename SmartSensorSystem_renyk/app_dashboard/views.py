@@ -56,13 +56,13 @@ def data_reader(id):
     """
     # influxDb查询语句（我崩溃了这个查询语句的引号真的辣鸡，参数查询还用不了）
     if id == 1:
-        query = 'select "time","id", "value" from sensor03 where id=1 AND time >=now()-48h;'
+        query = 'select "time","id", "value" from sensor03 where id=1 AND time >=now()-168h;'
     elif id == 2:
-        query = 'select "time","id", "value" from sensor03 where id=2 AND time >=now()-48h;'
+        query = 'select "time","id", "value" from sensor03 where id=2 AND time >=now()-168h;'
     elif id == 3:
-        query = 'select "time","id", "value" from sensor03 where id=3 AND time >=now()-48h;'
+        query = 'select "time","id", "value" from sensor03 where id=3 AND time >=now()-168h;'
     elif id == 4:
-        query = 'select "time","id", "value" from sensor03 where id=4 AND time >=now()-48h;'
+        query = 'select "time","id", "value" from sensor03 where id=4 AND time >=now()-168h;'
     Data = con_DB(query)
     # print(Data)
     points = Data.get_points()
@@ -350,6 +350,99 @@ def temp_line2() -> Grid:
     return ch
 
 
+def multi_line2() -> Grid:
+    """
+    数据处理折线图绘制
+    :return:
+    """
+    (time_list_res, value_list_res) = data_reader(1)
+    x_data = time_list_res
+    y_data = value_list_res
+    # print(x_data)
+    # print(y_data)
+    # y_data1 = value_list1
+    fake_1 = [81, 79, 70, 60, 50, 30, 60, 81, 70, 65]
+    fake_2 = [10, 20, 40, 60, 60, 10, 70, 50, 30, 10]
+
+    c = (
+        Line(init_opts=opts.InitOpts())
+            .set_global_opts(
+            title_opts=opts.TitleOpts(title="综合数据监控", title_textstyle_opts=opts.TextStyleOpts(color="#505458", font_size=17),
+                                      pos_top=0, pos_left=0, ),
+            tooltip_opts=opts.TooltipOpts(is_show=True, trigger="axis", axis_pointer_type="cross"),
+            legend_opts=opts.LegendOpts(is_show=True, selected_mode=False, item_height=15,
+                                        pos_top=0,
+                                        textstyle_opts=opts.TextStyleOpts(
+                                            color="#74b9f0"
+                                        )
+                                        ),
+            xaxis_opts=opts.AxisOpts(
+                type_="category",
+                axistick_opts=opts.AxisTickOpts(is_show=False),
+                axisline_opts=opts.AxisLineOpts(
+                    linestyle_opts=opts.LineStyleOpts(width=3, color="#74b9f0", )
+                ),
+            ),
+            # datazoom_opts=[opts.DataZoomOpts(range_start=0, range_end=100)],
+            toolbox_opts=opts.ToolboxOpts(is_show=False),
+            yaxis_opts=opts.AxisOpts(
+                type_="value",
+                axistick_opts=opts.AxisTickOpts(is_show=False),
+                splitline_opts=opts.SplitLineOpts(is_show=True),
+                name="",
+                axisline_opts=opts.AxisLineOpts(
+                    linestyle_opts=opts.LineStyleOpts(width=3, color="#74b9f0")
+                )
+            ),
+
+        )
+            .add_xaxis(xaxis_data=x_data)
+            .add_yaxis(
+            series_name="实时温度",
+            y_axis=y_data,
+            symbol="emptyCircle",
+            is_symbol_show=False,
+            is_smooth=True,
+            label_opts=opts.LabelOpts(is_show=False),
+            linestyle_opts=opts.LineStyleOpts(width=3, color="#fce3a8"),
+            # markline_opts=opts.MarkLineOpts(data=[opts.MarkLineItem(y=15, name="温度上限")],
+            #                                 linestyle_opts=opts.LineStyleOpts(color="#f9a9af", type_="dashed")),
+            # color="orange",
+            areastyle_opts=opts.AreaStyleOpts(opacity=0.3, color="#fce3a8"),
+        )
+                .add_yaxis(
+                series_name="实时气压",
+                y_axis=fake_1,
+                symbol="emptyCircle",
+                is_symbol_show=True,
+                is_smooth=True,
+                label_opts=opts.LabelOpts(is_show=False),
+                linestyle_opts=opts.LineStyleOpts(width=3, color="#fab7bc"),
+                # color="pink",
+                areastyle_opts=opts.AreaStyleOpts(opacity=0.3, color="#fab7bc"),
+            )
+            .add_yaxis(
+            series_name="氢气浓度",
+            y_axis=fake_2,
+            symbol="emptyCircle",
+            is_symbol_show=True,
+            is_smooth=True,
+            label_opts=opts.LabelOpts(is_show=False),
+            linestyle_opts=opts.LineStyleOpts(width=3, color="#8bc4f0"),
+            # color="pink",
+            areastyle_opts=opts.AreaStyleOpts(opacity=0.3, color="#8bc4f0"),
+        )
+            .set_colors(["#fce3a8", "#8bc4f0", "#fab7bc"])
+
+        # .dump_options_with_quotes()
+    )
+    # print("Line done >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+    grid = Grid()
+    grid.add(c, grid_opts=opts.GridOpts(pos_left='3%', pos_right='2%', pos_bottom='8%', pos_top='25%'))
+    ch = grid.dump_options_with_quotes()
+    return ch
+
+
 def temp_gauge() -> Gauge:
     (time_list_res, value_list_res) = data_reader(1)
     data = 0
@@ -428,7 +521,7 @@ def liquid() -> Grid:
             is_outline_show=False,
             label_opts=opts.LabelOpts(
                 font_size=15,
-                formatter='{@score}m³/h',
+                formatter='储氢罐',
                 position="inside",
                 color="#74b9f0"
             ),
@@ -490,7 +583,7 @@ def liquid_1() -> Grid:
             is_outline_show=False,
             label_opts=opts.LabelOpts(
                 font_size=15,
-                formatter='{@score}m³/h',
+                formatter='压缩机A',
                 position="inside",
                 color="#74b9f0"
             ),
@@ -613,6 +706,11 @@ class LiquidView_1(APIView):
 class GraphView(APIView):
     def get(self, request, *args, **kwargs):
         return JsonResponse(json.loads(graph()))
+
+
+class MultiView(APIView):
+    def get(self, request, * args, **kwargs):
+        return JsonResponse(json.loads(multi_line2()))
 
 
 class IndexView(APIView):

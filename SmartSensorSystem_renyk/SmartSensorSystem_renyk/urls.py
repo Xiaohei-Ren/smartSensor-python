@@ -37,6 +37,7 @@ urlpatterns = [
     url(r'^liquid/$', dashboard_view.LiquidView.as_view()),
     url(r'^liquid_1/$', dashboard_view.LiquidView_1.as_view()),
     url(r'^graph/$', dashboard_view.GraphView.as_view()),
+    url(r'^multi/$', dashboard_view.MultiView.as_view()),
     url(r'^dashboard/$', dashboard_view.IndexView.as_view()),
     url(r'^sensor_detail/(\d+)', sensor_view.sensor_detail),
     path('sensor_add/', sensor_manage_view.add),
@@ -47,6 +48,8 @@ urlpatterns = [
     path('sensor_list_con/', sensor_manage_view.con_sensor_list),
     path('sensor_list_ele/', sensor_manage_view.ele_sensor_list),
     path('sensor_temp_chart/', sensor_view.sensor_temp_chart),
+    path('sensor_multi_chart/', sensor_view.sensor_multi_chart),
+
     url(r'^test/$', sensor_manage_view.test, name='test'),
     url(r'^pre/$', sensor_manage_view.pressure_data, name='pre'),
     url(r'^sto/$', sensor_manage_view.storage_data, name='sto'),

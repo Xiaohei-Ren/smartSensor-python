@@ -212,3 +212,6 @@ class ChartView_his(APIView):
 
 def sensor_temp_chart(request):
     return render(request, 'sensor_temp_chart.html')
+
+def sensor_multi_chart(request):
+    return render(request, 'sensor_multi_chart.html')

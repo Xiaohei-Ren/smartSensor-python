@@ -9,7 +9,7 @@
                         <div class="row">
 							<div class="col-xs-12">
 								<div class="page-title-box" style="height: 55px">
-                                    <h4 class="page-title">数据平台</h4>
+                                    <h4 class="page-title">可视化平台</h4>
                                     <div class="clearfix"></div>
                                 </div>
 							</div>
@@ -168,8 +168,6 @@
 
                         <div class="row">
 
-
-
                             <div class="col-lg-4">
 {#                                <h4 class="m-t-0 header-title">设备监控</h4>#}
                                 <div class="card-box" id="graph" style="width: auto; height:400px;">
@@ -178,7 +176,6 @@
 
                         </div>
                         <!-- end row -->
-
 
                     </div> <!-- container -->
 
@@ -205,6 +202,7 @@
             function () {
                 fetchData();
                 noRefresh();
+                predata();
                 setInterval(predata, 5000);
                 setInterval(fetchData, 5000);
             }
@@ -261,6 +259,16 @@
                     var options = result.data;
                     chart_liquid_1.setOption(options);
                     old_data_liquid_1 = chart_liquid_1.getOption().series[0].data;
+                }
+            });
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/multi",
+                dataType: "json",
+                success: function (result) {
+                    var options = result.data;
+                    multi.setOption(options);
+                    old_data_multi = multi.getOption().series[0].data;
                 }
             });
 
