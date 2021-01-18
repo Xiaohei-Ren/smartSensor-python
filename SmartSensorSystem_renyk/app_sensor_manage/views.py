@@ -6,6 +6,7 @@ from app_sensor_manage import forms as sensor_from
 from app_sensor_manage.models import Sensor
 from app_user import forms as user_form
 
+
 # Create your views here.
 
 def add(request):
@@ -123,5 +124,3 @@ def test(request):
         name = request.session['user_name']
     finally:
         return JsonResponse(name, safe=False)
-
-
