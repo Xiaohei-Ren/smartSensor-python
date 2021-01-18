@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- Start content -->
+    <!-- Start content -->
     <div class="content">
         <div class="container">
             <div class="row">
@@ -22,32 +22,45 @@
                             <div class="col-lg-12">
                                 <div class="card-box" style="width: auto; height:160px;">
                                     <div class="col-lg-3">
-                                        <p class="text-muted font-13"><strong>编号:&ensp;&ensp;&ensp;&ensp;</strong> <span class="m-l-15">{{ sensor.sensor_id }}</span></p>
+                                        <p class="text-muted font-13"><strong>编号:&ensp;&ensp;&ensp;&ensp;</strong> <span
+                                                class="m-l-15">{{ sensor.sensor_id }}</span></p>
 
-                                        <p class="text-muted font-13"><strong>名称:&ensp;&ensp;&ensp;&ensp;</strong> <span class="m-l-15">{{ sensor.name }}</span></p>
+                                        <p class="text-muted font-13"><strong>名称:&ensp;&ensp;&ensp;&ensp;</strong> <span
+                                                class="m-l-15">{{ sensor.name }}</span></p>
 
-                                        <p class="text-muted font-13"><strong>类别:&ensp;&ensp;&ensp;&ensp;</strong> <span class="m-l-15">{{ sensor.sort }}</span></p>
+                                        <p class="text-muted font-13"><strong>类别:&ensp;&ensp;&ensp;&ensp;</strong> <span
+                                                class="m-l-15">{{ sensor.sort }}</span></p>
 
-                                        <p class="text-muted font-13"><strong>关联设备:</strong> <span class="m-l-15">{{ sensor.location }}</span></p>
+                                        <p class="text-muted font-13"><strong>关联设备:</strong> <span
+                                                class="m-l-15">{{ sensor.location }}</span></p>
 
                                     </div>
                                     <div class="col-lg-3">
-                                        <p class="text-muted font-13"><strong>创建时间:</strong> <span class="m-l-15">{{ sensor.create_time }}</span></p>
+                                        <p class="text-muted font-13"><strong>创建时间:</strong> <span
+                                                class="m-l-15">{{ sensor.create_time }}</span></p>
 
-                                        <p class="text-muted font-13"><strong>变更时间:</strong> <span class="m-l-15">{{ sensor.last_login_time }}</span></p>
+                                        <p class="text-muted font-13"><strong>变更时间:</strong> <span
+                                                class="m-l-15">{{ sensor.last_login_time }}</span></p>
 
-                                        <p class="text-muted font-13"><strong>备注:&ensp;&ensp;&ensp;&ensp;</strong> <span class="m-l-15">{{ sensor.comment }}</span></p>
+                                        <p class="text-muted font-13"><strong>备注:&ensp;&ensp;&ensp;&ensp;</strong> <span
+                                                class="m-l-15">{{ sensor.comment }}</span></p>
 
-                                        <p class="text-muted font-13"><strong>当前状态:</strong> <span class="m-l-15">{{ sensor.status }}</span></p>
+                                        <p class="text-muted font-13"><strong>当前状态:</strong> <span
+                                                class="m-l-15">{{ sensor.status }}</span></p>
                                     </div>
                                     <div class="col-lg-3">
-                                        <p class="text-muted font-13"><strong>实时数据:</strong> <span class="m-l-15" id="data">0 ℃</span></p>
+                                        <p class="text-muted font-13"><strong>实时数据:</strong> <span class="m-l-15"
+                                                                                                   id="data">0 ℃</span>
+                                        </p>
 
-                                        <p class="text-muted font-13"><strong>历史平均:</strong> <span class="m-l-15"></span></p>
+                                        <p class="text-muted font-13"><strong>历史平均:</strong> <span
+                                                class="m-l-15"></span></p>
 
-                                        <p class="text-muted font-13"><strong>安全上限：</strong> <span class="m-l-15"></span></p>
+                                        <p class="text-muted font-13"><strong>安全上限：</strong> <span
+                                                class="m-l-15"></span></p>
 
-                                        <p class="text-muted font-13"><strong>报警:&ensp;&ensp;&ensp;&ensp;</strong> <span class="m-l-15"></span></p>
+                                        <p class="text-muted font-13"><strong>报警:&ensp;&ensp;&ensp;&ensp;</strong> <span
+                                                class="m-l-15"></span></p>
                                     </div>
                                     <div class="col-lg-3" id="liquid" style="height: 130px">
 
@@ -62,7 +75,7 @@
                             </div>
                         </div>
                         <hr/>
-                        <h4><strong>报警记录</strong>&nbsp;<i class="mdi mdi-alert-outline" ></i></h4>
+                        <h4><strong>报警记录</strong>&nbsp;<i class="mdi mdi-alert-outline"></i></h4>
                     </div>
                     <!-- end col -->
                 </div>
@@ -72,168 +85,169 @@
 {% endblock content %}
 
 {% block javascript %}
-<script>
+    <script>
 
-    var data=[];
-    var date=[];
+        var data = [];
+        var date = [];
 
-    var myChart = echarts.init(document.getElementById('main'));
+        var myChart = echarts.init(document.getElementById('main'));
 
-    myChart.setOption ({
-        title: {
-            text: '数据趋势',
-            textStyle: {
-                color:'#505458',
+        myChart.setOption({
+            title: {
+                text: '数据趋势',
+                textStyle: {
+                    color: '#505458',
+                },
             },
-        },
-        grid: {
+            grid: {
                 top: '20%',
                 left: '3%',
                 right: '2%',
                 bottom: '7%',
-        },
-        xAxis: {
-            type: 'category',
-            axisLine:{
-                lineStyle: {
-                    color: "#74b9f0",
-                    width: 3,
+            },
+            xAxis: {
+                type: 'category',
+                axisLine: {
+                    lineStyle: {
+                        color: "#74b9f0",
+                        width: 3,
+                    }
+                },
+            },
+            yAxis: {
+                type: 'value',
+                axisLine: {
+                    lineStyle: {
+                        color: "#74b9f0",
+                        width: 3,
+                    }
+                },
+                name: "℃",
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross'
+                },
+            },
+            color: ['#fce3a8'],
+            legend: {
+                show: true,
+                textStyle: {
+                    color: '#74b9f0'
                 }
             },
-        },
-        yAxis: {
-            type: 'value',
-            axisLine:{
-                lineStyle: {
-                    color: "#74b9f0",
-                    width: 3,
+            series: [
+                {
+                    name: 'TS-01',
+                    type: 'line',
+                    smooth: true,
+                    symbol: 'none',
+                    stack: 'a',
+                    areaStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#fce3a8'
+                        }, {
+                            offset: 1,
+                            color: '#ffe'
+                        }])
+                    },
+                    lineStyle: {
+                        color: "#fce3a8",
+                        width: 3,
+                    },
                 }
-            },
-            name: "℃",
-        },
-        tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-                type: 'cross'
-            },
-        },
-        color: ['#fce3a8'],
-        legend : {
-            show: true,
-            textStyle: {
-                color: '#74b9f0'
-            }
-        },
-        series: [
-            {
-                name:'TS-01',
-                type:'line',
-                smooth:true,
-                symbol: 'none',
-                stack: 'a',
-                areaStyle: {
-                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                        offset: 0,
-                        color: '#fce3a8'
-                    }, {
-                        offset: 1,
-                        color: '#ffe'
-                    }])
-                },
-                lineStyle: {
-                    color :"#fce3a8",
-                    width : 3,
-                },
-            }
-        ]
-    });
+            ]
+        });
 
-    myChart.showLoading();
+        myChart.showLoading();
 
-    {#后端请求数据#}
-    $.ajax({
-        type: "GET",
-        url: "http://127.0.0.1:8000/time_list_id",
-        dataType: "json",
-        success: function (a) {
-            var time_list = a;
-            $.ajax({
+        {#后端请求数据#}
+        $.ajax({
             type: "GET",
-            url: "http://127.0.0.1:8000/value_list_id",
+            url: "http://127.0.0.1:8000/time_list_id",
             dataType: "json",
             success: function (a) {
-                var value_list = a;
+                var time_list = a;
+                $.ajax({
+                    type: "GET",
+                    url: "http://127.0.0.1:8000/value_list_id",
+                    dataType: "json",
+                    success: function (a) {
+                        var value_list = a;
 
-                console.log(time_list);
-                console.log(value_list);
+                        console.log(time_list);
+                        console.log(value_list);
 
-                date = time_list;
-                data = value_list;
+                        date = time_list;
+                        data = value_list;
 
-                {#请求动态数据#}
-                function addData(shift) {
-                    $.ajax({
-                        type: "GET",
-                        url: "http://127.0.0.1:8000/time_id",
-                        dataType: "json",
-                        success: function (a) {
+                        {#请求动态数据#}
 
-                            var time = a;
-
+                        function addData(shift) {
                             $.ajax({
                                 type: "GET",
-                                url: "http://127.0.0.1:8000/value_id",
+                                url: "http://127.0.0.1:8000/time_id",
                                 dataType: "json",
                                 success: function (a) {
-                                    var value = a;
 
-                                    date.push(time);
-                                    data.push(value);
-                                    $("#data").empty();
-                                    $("#data").append(value + " ℃");
-                                    console.log(time);
-                                    console.log(value);
+                                    var time = a;
 
-                                    if (shift) {
-                                        date.shift();
-                                        data.shift();
-                                    }
+                                    $.ajax({
+                                        type: "GET",
+                                        url: "http://127.0.0.1:8000/value_id",
+                                        dataType: "json",
+                                        success: function (a) {
+                                            var value = a;
+
+                                            date.push(time);
+                                            data.push(value);
+                                            $("#data").empty();
+                                            $("#data").append(value + " ℃");
+                                            console.log(time);
+                                            console.log(value);
+
+                                            if (shift) {
+                                                date.shift();
+                                                data.shift();
+                                            }
+                                        }
+                                    });
                                 }
                             });
                         }
-                    });
-                }
 
-                {#图表加载数据#}
-                myChart.setOption ({
-                    xAxis: {
-                        data: date
-                    },
-                    series: [
-                        {
-                            data: data
-                        }
-                    ]
+                        {#图表加载数据#}
+                        myChart.setOption({
+                            xAxis: {
+                                data: date
+                            },
+                            series: [
+                                {
+                                    data: data
+                                }
+                            ]
+                        });
+
+                        myChart.hideLoading();
+                        {#动态加载数据#}
+                        setInterval(
+                            function () {
+                                addData(true);
+                                myChart.setOption({
+                                    xAxis: {
+                                        data: date
+                                    },
+                                    series: [{
+                                        data: data
+                                    }]
+                                });
+                            }, 5000);
+                    }
                 });
+            }
+        });
 
-                myChart.hideLoading();
-                {#动态加载数据#}
-                setInterval(
-                    function () {
-                    addData(true);
-                    myChart.setOption({
-                        xAxis: {
-                            data: date
-                        },
-                        series: [{
-                            data: data
-                        }]
-                    });
-                }, 5000);
-                }
-            });
-        }
-    });
-
-</script>
+    </script>
 {% endblock javascript %}

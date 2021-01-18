@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from app_dashboard import views as dashboard_view
 from app_user import views as user_view
 from app_sensor_visual import views as sensor_view
@@ -38,7 +38,9 @@ urlpatterns = [
     path('sensor_list_ele/', sensor_manage_view.ele_sensor_list),
     path('sensor_add/', sensor_manage_view.add),
     path('sensor_temp_chart/', dashboard_view.sensor_temp_chart),
+    path('his_data_chart/', dashboard_view.his_data_chart),
     path('visual_dashboard_screen/', dashboard_view.visual_dashboard),
+    path('date/', dashboard_view.data_set),
 
     url(r'^time_list/$', dashboard_view.json_return_tl, name='time_list'),
     url(r'^value_list/$', dashboard_view.json_return_vl, name='value_list'),
@@ -57,6 +59,11 @@ urlpatterns = [
     url(r'^test/$', sensor_manage_view.test, name='test'),
     url(r'^pre/$', dashboard_view.pressure_data, name='pre'),
     url(r'^pre_mid/$', dashboard_view.pressure_data_mid, name='pre_mid'),
+
+    url(r'^his_time/$', dashboard_view.his_time, name='his_time'),
+    url(r'^his_temp/$', dashboard_view.his_temp, name='his_temp'),
+    url(r'^his_pre_out/$', dashboard_view.his_pre_out, name='his_pre_out'),
+    url(r'^his_pre_in/$', dashboard_view.his_pre_in, name='his_pre_in')
 
 ]
 

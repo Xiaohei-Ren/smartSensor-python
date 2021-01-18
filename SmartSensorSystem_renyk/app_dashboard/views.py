@@ -1,11 +1,15 @@
+import json
+
 from django.shortcuts import render
 import datetime
 import pytz
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 from influxdb import InfluxDBClient
 import time
 from app_sensor_manage.models import Sensor
 import random
+import pymysql
 
 
 # Create your views here.todo：可视化图表增加
@@ -68,7 +72,7 @@ def data_reader_all_2(id):
     :param id:
     :return:
     """
-    query = 'select "time","id", "value" from hs_data where id=1 AND time>now()-6h;'
+    query = 'select "time","id", "value" from hs_data where id=1 AND time>now()-2h;'
     Data = con_DB(query)
     points = Data.get_points()
     time_list = []
@@ -212,10 +216,102 @@ def sensor_temp_chart(request):
     return render(request, 'sensor_temp_chart.html')
 
 
+def his_data_chart(request):
+    return render(request, 'his_data_chart.html')
+
+
 def visual_dashboard(request):
     return render(request, 'visual_dashboard_screen.html')
 
 
 def random_data():
+    """
+    test 随机数
+    :return:
+    """
     ret = random.uniform(3, 4)
     return ret
+
+
+def conn_mysql(date):
+    """
+    从mysql获取历史数据
+    :return:
+    """
+    connect = pymysql.connect(host='rm-bp1y3s613ztw9rrc42o.mysql.rds.aliyuncs.com', user='renyk',
+                              password='Renyuke@001018', db='hydrogenation_station_data', charset='utf8')
+    cursor = connect.cursor()
+    sql = "select * from compressor_system_data where datetime like %s"
+    date = date + '%'
+    cursor.execute(sql, date)
+    a = cursor.fetchall()
+
+    datetime_list = []
+    state_a = []
+    pressure_in_a = []
+    pressure_out_a = []
+    temp_out_a = []
+    state_b = []
+    pressure_in_b = []
+    pressure_out_b = []
+    temp_out_b = []
+
+    for i in range(len(a)):
+        datetime_list.append(str(a[i][0]))
+        state_a.append(str(a[i][1]))
+        pressure_in_a.append(str(a[i][2]))
+        pressure_out_a.append(str(a[i][3]))
+        temp_out_a.append(str(a[i][4]))
+        state_b.append(str(a[i][5]))
+        pressure_in_b.append(str(a[i][6]))
+        pressure_out_b.append(str(a[i][7]))
+        temp_out_b.append(str(a[i][8]))
+
+    return datetime_list, state_a, pressure_out_a, pressure_in_a, temp_out_a, state_b, pressure_out_b, pressure_in_b, temp_out_b
+
+
+#
+# (datetime_list, state_a, pressure_out_a, pressure_in_a, temp_out_a, state_b, pressure_out_b, pressure_in_b,
+#  temp_out_b) = conn_mysql('2020-07-28')
+# print(datetime_list)
+
+
+a = str(datetime.datetime.now())
+a = a[:10]
+dateTime = a
+
+
+def his_time(request):
+
+    (datetime_list, state_a, pressure_out_a, pressure_in_a, temp_out_a, state_b, pressure_out_b, pressure_in_b,
+     temp_out_b) = conn_mysql(dateTime)
+    return JsonResponse(datetime_list, safe=False)
+
+
+def his_temp(request):
+    (datetime_list, state_a, pressure_out_a, pressure_in_a, temp_out_a, state_b, pressure_out_b, pressure_in_b,
+     temp_out_b) = conn_mysql(dateTime)
+    return JsonResponse(temp_out_a, safe=False)
+
+
+def his_pre_out(request):
+    (datetime_list, state_a, pressure_out_a, pressure_in_a, temp_out_a, state_b, pressure_out_b, pressure_in_b,
+     temp_out_b) = conn_mysql(dateTime)
+    return JsonResponse(pressure_out_a, safe=False)
+
+
+def his_pre_in(request):
+    (datetime_list, state_a, pressure_out_a, pressure_in_a, temp_out_a, state_b, pressure_out_b, pressure_in_b,
+     temp_out_b) = conn_mysql(dateTime)
+    return JsonResponse(pressure_in_a, safe=False)
+
+
+@csrf_exempt
+def data_set(request):
+    if request.method == 'POST':
+        post_data = json.loads(request.body)
+        date = post_data.get("date")
+        global dateTime
+        dateTime = str(date)
+        print(date)
+    return HttpResponse('success!')
