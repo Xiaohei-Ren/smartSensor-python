@@ -1,0 +1,293 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Start content -->
+    <div class="content">
+        <div class="container">
+
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="page-title-box">
+
+                        <div class="clearfix">
+                            <h4 class="page-title">历史数据-压缩机 </h4>
+                            <div id='date' style="height: 30px;width: 250px; float: right">
+                                {% csrf_token %}
+                                <input type="text" class="form-control" value='' placeholder="点击选择时间" id='inputdate'
+                                       style="width: 250px; height: 35px"/>
+
+                            </div>
+                            <button class="btn btn-icon waves-effect btn-default m-b-5" id="btn" onclick="threeFn()"
+                                    style="float: right;margin-right: 10px"><i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card-box" id="his_line" style="width: auto; height:600px;">
+                    </div>
+
+                </div>
+            </div>
+            <!-- end row -->
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card-box">
+                    </div>
+                    <!-- end row -->
+                </div>
+            </div>
+            <!-- end row -->
+
+
+        </div> <!-- container -->
+
+    </div>
+    <!-- content -->
+{% endblock content %}
+
+{% block javascript %}
+    <script>
+        var his_time = [];
+        var his_data = [];
+        var his_pre_out = [];
+        var his_pre_in = [];
+
+        var hisChart = echarts.init(document.getElementById('his_line'));
+
+        hisChart.showLoading();
+
+        hisChart.setOption({
+            title: {
+                text: '历史数据-压缩机A',
+                textStyle: {
+                    color: '#505458',
+                },
+                {#link: '',#}
+            },
+            dataZoom: [{
+                type: 'inside',
+            }],
+            grid: {
+                top: '15%',
+                left: '3%',
+                right: '2%',
+                bottom: '5%',
+            },
+            xAxis: {
+                type: 'category',
+                axisLine: {
+                    lineStyle: {
+                        color: "#74b9f0",
+                        width: 2,
+                    }
+                },
+            },
+            yAxis: {
+                type: 'value',
+                axisLine: {
+                    lineStyle: {
+                        color: "#74b9f0",
+                        width: 3,
+                    }
+                },
+                name: "℃ / MPa",
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross'
+                },
+            },
+            color: ['#ffcc80', '#9a56f6', '#e57373'],
+            legend: {
+                show: true,
+                textStyle: {
+                    color: '#78909c'
+                }
+            },
+            toolbox: {
+                right: 30,
+                feature: {
+                    saveAsImage: {},
+                    restore: {},
+                    dataView: {},
+                }
+            },
+            series: [
+                {
+                    name: '压缩机A出口温度(℃)',
+                    type: 'line',
+                    smooth: true,
+                    symbol: 'none',
+                    markPoint: {
+                        data: [
+                            {type: 'max', name: '最大值'},
+                            {type: 'min', name: '最小值'}
+                        ],
+                    },
+                    areaStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#ffcc80'
+                        }, {
+                            offset: 1,
+                            color: '#ffe'
+                        }])
+                    },
+                    lineStyle: {
+                        color: "#ffcc80",
+                        width: 2,
+                    },
+                }, {
+                    name: '压缩机A进气压力(MPa)',
+                    type: 'line',
+                    smooth: true,
+                    symbol: 'none',
+                    markPoint: {
+                        data: [
+                            {type: 'max', name: '最大值'},
+                            {type: 'min', name: '最小值'}
+                        ],
+                    },
+                    areaStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#9a56f6'
+                        }, {
+                            offset: 1,
+                            color: '#ffe'
+                        }])
+                    },
+                    lineStyle: {
+                        color: "#9a56f6",
+                        width: 2,
+                    },
+                }, {
+                    name: '压缩机A出口压力(MPa)',
+                    type: 'line',
+                    smooth: true,
+                    symbol: 'none',
+                    markPoint: {
+                        data: [
+                            {type: 'max', name: '最大值'},
+                            {type: 'min', name: '最小值'}
+                        ],
+                    },
+                    areaStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#e57373'
+                        }, {
+                            offset: 1,
+                            color: '#ffe'
+                        }])
+                    },
+                    lineStyle: {
+                        color: "#e57373",
+                        width: 2,
+                    },
+                }
+            ],
+
+        });
+
+        {# 历史图表数据请求 #}
+        $.ajax({
+            type: "GET",
+            url: "http://127.0.0.1:8000/his_time",
+            dataType: "json",
+            success: function (a) {
+                his_time = a;
+                $.ajax({
+                    type: "GET",
+                    url: "http://127.0.0.1:8000/his_pre_out",
+                    dataType: "json",
+                    success: function (a) {
+                        his_pre_out = a;
+                        $.ajax({
+                            type: "GET",
+                            url: "http://127.0.0.1:8000/his_pre_in",
+                            dataType: "json",
+                            success: function (a) {
+                                his_pre_in = a;
+                                $.ajax({
+                                    type: "GET",
+                                    url: "http://127.0.0.1:8000/his_temp",
+                                    dataType: "json",
+                                    success: function (a) {
+                                        his_data = a;
+                                        hisChart.setOption({
+                                            xAxis: {
+                                                data: his_time
+                                            },
+                                            series: [
+                                                {
+                                                    data: his_data
+
+                                                }, {
+                                                    data: his_pre_in
+
+                                                }, {
+                                                    data: his_pre_out
+
+                                                }
+                                            ]
+                                        });
+
+                                        hisChart.hideLoading();
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+    </script>
+    {#    日期选择js#}
+    <script>
+        var d = new DateJs({
+            inputEl: '#inputdate',
+            el: '#date'
+        });
+
+        function aa() {
+            var date = d.choiceDate['date'];
+            if (date != null) {
+                console.log(date);
+                var dateList = {
+                    "date": date,
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://127.0.0.1:8000/date/',
+                    data: JSON.stringify(dateList),
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function () {
+
+                    }
+                });
+                location.reload();
+            } else {
+                console.log('a');
+            }
+
+        }
+
+        var btn = document.getElementById("btn");
+
+        function threeFn() {
+            aa()
+        }
+    </script>
+
+{% endblock javascript %}
