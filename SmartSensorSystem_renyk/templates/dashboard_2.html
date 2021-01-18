@@ -9,7 +9,7 @@
                         <div class="row">
 							<div class="col-xs-12">
 								<div class="page-title-box" style="height: 55px">
-                                    <h4 class="page-title">可视化平台</h4>
+                                    <h4 class="page-title">数据平台</h4>
                                     <div class="clearfix"></div>
                                 </div>
 							</div>
@@ -25,7 +25,7 @@
                                     <i class="mdi mdi-thermometer widget-two-icon"></i>
                                     <div class="wigdet-two-content">
                                         <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="Statistics">温度传感器</p>
-                                        <h2><span data-plugin="counterup" >{{ temp_sensor_online }}</span><span style="font-size: 15px">/ {{ temp_sensor }} </span> <small><i class="mdi mdi-information-outline text-success"></i></small></h2>
+                                        <h2><span data-plugin="counterup">{{ temp_sensor_online }}</span><span style="font-size: 15px">/ {{ temp_sensor }} </span> <small><i class="mdi mdi-information-outline text-success"></i></small></h2>
                                         <p class="text-muted m-0"><b>UpdateTime:</b> {{ time_now }}</p>
                                     </div>
                                 </div>
@@ -79,17 +79,12 @@
 
                         <div class="row">
                             <div class="col-lg-6">
-{#                                <h4 class="m-t-0 header-title">实时温度趋势</h4>#}
-                                <a href="/sensor_temp_chart/">
-                                    <div class="card-box" id="line" style="width: auto; height:300px;">
-                                    </div>
-                                </a>
-
+                                  <div class="card-box" id="main" style="width: auto; height:300px;">
+                                  </div>
                             </div>
 
                             <div class="col-lg-6">
-{#                                <h4 class="m-t-0 header-title">实时压力趋势</h4>#}
-                                <div class="card-box" id="line_1" style="width: auto; height:300px;">
+                                <div class="card-box" id="" style="width: auto; height:300px;">
                                 </div>
                             </div>
 
@@ -99,67 +94,46 @@
                         <div class="row">
 
                             <div class="col-lg-4">
-{#                                <h4 class="m-t-0 header-title">设备监控</h4>#}
-                                <div class="card-box" style="height: 300px;">
-                                    <div id="liquid" style="width:300px; height:290px; float: left">
+                                    <div class="card-box" id="liquid_c" style="width: auto; height:330px;">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="card-box" style="height: 330px;">
+                                    <div id="liquid" style="width:280px; height:290px; float: left">
                                     </div>
-                                    <div style="width: 10px; border-left: 2px solid #f3f3f3"></div>
-                                    <div style="width: 180px; height: 250px; float: right; font-size: 14px; border-left: 2px solid #f3f3f3">
-                                        <div style="margin-left: 20px; margin-top: 10px; font-family: impact, sans-serif;font-size: 14px;letter-spacing: 0.4pt;word-spacing: 6.2pt;">
-                                            <div id="h_p"></div>
-                                            <br>
-                                            <div id="h_t"></div>
-                                            <br>
-                                            <div id="h_a"></div>
-                                            <hr>
-                                            <div id="l_p"></div>
-                                            <br>
-                                            <div id="l_t"></div>
-                                            <br>
-                                            <div id="l_a"></div>
-                                        </div>
+                                    <div style=" float: right; height: 290px; border-left: 2px solid #f3f3f3 ; padding-left: 30px; padding-top: 10px;font-family: sans-serif;font-size: 14px;letter-spacing: 0.4pt;word-spacing: 6.2pt; ">
+                                        <strong><p>高压罐状态</p></strong>
+                                        <br>
+                                        <div id="p_n"></div>
+                                        <br>
+                                        <div id="p_a"></div>
+                                        <br>
+                                        <div id="p_max"></div>
+                                        <br>
+                                        <div id="p_min"></div>
+                                        <br>
+                                        <div id="alert"></div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-lg-4">
-{#                                <h4 class="m-t-0 header-title">实时压力</h4>#}
-                                <div class="card-box" style="height: 300px;">
-                                    <div id="gauge" style="width:300px; height:290px; float: left;">
+                                <div class="card-box" style="height: 330px;">
+                                    <div id="liquid_mid" style="width:280px; height:290px; float: left">
                                     </div>
-                                    <div style="width: 10px; border-left: 2px solid #f3f3f3"></div>
-                                    <div style="width: 180px; height: 250px; float: right; font-size: 14px; border-left: 2px solid #f3f3f3">
-                                        <div style="margin-left: 30px; margin-top: 10px; font-family: impact, sans-serif;font-size: 14px;letter-spacing: 0.4pt;word-spacing: 6.2pt;">
-                                            <div id="p_n"></div>
-                                            <br>
-                                            <div id="p_a"></div>
-                                            <br>
-                                            <div id="p_max"></div>
-                                            <br>
-                                            <div id="p_min"></div>
-                                            <br>
-                                            <div id="alert"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4">
-{#                                <h4 class="m-t-0 header-title">设备监控</h4>#}
-                                <div class="card-box" style="height: 300px;">
-                                    <div id="liquid_1" style="width:280px; height:290px; float: left">
-                                    </div>
-                                    <div style="width: 180px; height: 250px; float: right; font-size: 14px; border-left: 2px solid #f3f3f3">
-                                        <div style="margin-left: 30px; margin-top: 10px; font-family: impact, sans-serif;font-size: 14px;letter-spacing: 0.4pt;word-spacing: 6.2pt;">
-                                            <div id="p_i_a"></div>
-                                            <br>
-                                            <div id="p_o_a"></div>
-                                            <br>
-                                            <div id="t_o_a"></div>
-                                            <br>
-                                            <div id="s_a"></div>
-                                        </div>
-
+                                    <div style=" float: right; height: 290px; border-left: 2px solid #f3f3f3 ; padding-left: 30px; padding-top: 10px;font-family: sans-serif;font-size: 14px;letter-spacing: 0.4pt;word-spacing: 6.2pt; ">
+                                        <strong><p>中压罐状态</p></strong>
+                                        <br>
+                                        <div id="temp_mid"></div>
+                                        <br>
+                                        <div id="pre_mid"></div>
+                                        <br>
+                                        <div id="vol_mid"></div>
+                                        <br>
+                                        <div id="state_mid"></div>
+                                        <br>
+                                        <div id="al_mid"></div>
                                     </div>
                                 </div>
                             </div>
@@ -168,14 +142,20 @@
 
                         <div class="row">
 
+
+
                             <div class="col-lg-4">
-{#                                <h4 class="m-t-0 header-title">设备监控</h4>#}
-                                <div class="card-box" id="graph" style="width: auto; height:400px;">
+                                <div class="card-box" id="test" style="width: auto; height:330px;">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card-box" id="" style="width: auto; height:330px;">
                                 </div>
                             </div>
 
                         </div>
                         <!-- end row -->
+
 
                     </div> <!-- container -->
 
@@ -184,195 +164,436 @@
 {% endblock content %}
 
 {% block javascript %}
-<script>
-        var chart = echarts.init(document.getElementById('line'), 'white', {renderer: 'canvas'});
-        var chart_line = echarts.init(document.getElementById('line_1'), 'white', {renderer: 'canvas'});
-        var chart_gauge = echarts.init(document.getElementById('gauge'), 'white', {renderer: 'canvas'});
-        var chart_liquid  = echarts.init(document.getElementById('liquid'), 'white', {renderer: 'canvas'});
-        var chart_liquid_1  = echarts.init(document.getElementById('liquid_1'), 'white', {renderer: 'canvas'});
-        var chart_graph  = echarts.init(document.getElementById('graph'), 'white', {renderer: 'canvas'});
-        var old_data = [];
-        var old_data_line = [];
-        var old_data_gauge = [];
-        var old_data_liquid = [];
-        var old_data_liquid_1 = [];
-        var old_data_graph = [];
 
-        $(
-            function () {
-                fetchData();
-                noRefresh();
-                predata();
-                setInterval(predata, 5000);
-                setInterval(fetchData, 5000);
+
+    <script>
+    var volume;
+    var volume_p ;
+    var volume_1;
+    var volume_m ;
+    var data=[];
+    var date=[];
+
+    {#加载静态图表#}
+    var myChart = echarts.init(document.getElementById('main'));
+    var chart_liquid = echarts.init(document.getElementById('liquid'));
+    var chart_liquid_mid = echarts.init(document.getElementById('liquid_mid'));
+    var chart_liquid_composer = echarts.init(document.getElementById('liquid_c'));
+
+
+    myChart.setOption ({
+        title: {
+            text: '实时数据监控',
+            textStyle: {
+                color:'#505458',
+            },
+            link: '/sensor_temp_chart/',
+        },
+        grid: {
+                top: '23%',
+                left: '3%',
+                right: '1%',
+                bottom: '7%',
+        },
+        xAxis: {
+            type: 'category',
+            axisLine:{
+                lineStyle: {
+                    color: "#74b9f0",
+                    width: 3,
+                }
+            },
+        },
+        yAxis: {
+            type: 'value',
+            axisLine:{
+                lineStyle: {
+                    color: "#74b9f0",
+                    width: 3,
+                }
+            },
+            name: "℃",
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross'
+            },
+        },
+        color: ['#fce3a8'],
+        legend : {
+            show: true,
+            textStyle: {
+                color: '#74b9f0'
             }
+        },
+        series: [
+            {
+                name:'TS-01',
+                type:'line',
+                smooth:true,
+                symbol: 'none',
+                stack: 'a',
+                areaStyle: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: '#fce3a8'
+                    }, {
+                        offset: 1,
+                        color: '#ffe'
+                    }])
+                },
+                lineStyle: {
+                    color :"#fce3a8",
+                    width : 3,
+                },
 
-        );
 
+            }
+        ]
+    });
+    chart_liquid.setOption({
+        title: {
+            text: '储氢系统-高压储罐',
+            subtext: '氢气储量：',
+            textStyle: {
+                color:'#505458',
+            },
+        },
+        series: [{
+            type: 'liquidFill',
+            data: [{
+                    name: '高压罐容量',
+                    value: volume_p,
+                    itemStyle: {
+                        normal: {
+                            color: '#74b9ed'
+                        }
+                    }
+                }],
+            label: {
+                normal: {
+                    textStyle: {
+                        fontSize: 15,
+                        color: '#74b9ed'
+                    }
+                }
+            },
+            backgroundStyle: {
+                shadowColor: 'rgba(0, 0, 0, 0.2)',
+                shadowBlur: 20
+            },
+            radius: '75%',
+            shape:"path:// M128 938.666667v-47.530667h381.866667V863.573333a165.802667 165.802667 0 0 1-142.144-163.648V321.706667h-23.978667v-19.456h-50.069333a42.432 42.432 0 0 0-42.304 42.304V488.810667a93.290667 93.290667 0 0 1 66.666666 89.130666v194.474667a93.12 93.12 0 0 1-68.544 89.6v28.224h-46.933333v-27.733333a93.290667 93.290667 0 0 1-70.4-90.154667v-194.325333a93.290667 93.290667 0 0 1 62.805333-87.893334v-145.493333a98.432 98.432 0 0 1 29.76-70.570667 98.389333 98.389333 0 0 1 68.885334-28.053333h50.069333v-19.2h25.706667a165.802667 165.802667 0 0 1 163.541333-141.312 165.696 165.696 0 0 1 165.269333 165.269333v379.221334h24.96v23.701333h46.4V430.165333a83.456 83.456 0 0 1 83.2-83.2 83.456 83.456 0 0 1 83.2 83.2V784.426667a83.754667 83.754667 0 0 1-70.805333 82.261333v24.64h68.544v47.530667z m714.005333-47.530667v-24.405333a83.498667 83.498667 0 0 1-72.341333-82.496v-84.330667H723.2v24.256h-26.752a165.994667 165.994667 0 0 1-139.648 139.306667v27.733333z",
+            outline: {
+                show: false
+            },
+            center: ['50%', '55%'],
 
-        function fetchData() {
-            $.ajax({
-                type: "GET",
-                url: "http://127.0.0.1:8000/line",
-                dataType: "json",
-                success: function (result) {
-                    var options = result.data;
-                    chart.setOption(options);
-                    old_data = chart.getOption().series[0].data;
+        }]
+    });
+    chart_liquid_mid.setOption({
+        title: {
+            text: '储氢系统-中压储罐',
+            subtext: '氢气储量：',
+            textStyle: {
+                color:'#505458',
+            },
+        },
+        series: [{
+            type: 'liquidFill',
+            data: [{
+                    name: '中压罐容量',
+                    value: volume_m,
+                    itemStyle: {
+                        normal: {
+                            color: '#74b9ed'
+                        }
+                    }
+                }],
+            label: {
+                normal: {
+                    textStyle: {
+                        fontSize: 15,
+                        color: '#74b9ed'
+                    }
                 }
-            });
-            $.ajax({
-                type: "GET",
-                url: "http://127.0.0.1:8000/line_1",
-                dataType: "json",
-                success: function (result) {
-                    var options = result.data;
-                    chart_line.setOption(options);
-                    old_data_line = chart_line.getOption().series[0].data;
-                }
-            });
-            $.ajax({
-                type: "GET",
-                url: "http://127.0.0.1:8000/gauge",
-                dataType: "json",
-                success: function (result) {
-                    var options = result.data;
-                    chart_gauge.setOption(options);
-                    old_data_gauge = chart_gauge.getOption().series[0].data;
-                }
-            });
-            $.ajax({
-                type: "GET",
-                url: "http://127.0.0.1:8000/liquid",
-                dataType: "json",
-                success: function (result) {
-                    var options = result.data;
-                    chart_liquid.setOption(options);
-                    old_data_liquid = chart_liquid.getOption().series[0].data;
-                }
-            });
-            $.ajax({
-                type: "GET",
-                url: "http://127.0.0.1:8000/liquid_1",
-                dataType: "json",
-                success: function (result) {
-                    var options = result.data;
-                    chart_liquid_1.setOption(options);
-                    old_data_liquid_1 = chart_liquid_1.getOption().series[0].data;
-                }
-            });
-            $.ajax({
-                type: "GET",
-                url: "http://127.0.0.1:8000/multi",
-                dataType: "json",
-                success: function (result) {
-                    var options = result.data;
-                    multi.setOption(options);
-                    old_data_multi = multi.getOption().series[0].data;
-                }
-            });
+            },
+            backgroundStyle: {
+                shadowColor: 'rgba(0, 0, 0, 0.2)',
+                shadowBlur: 20
+            },
+            radius: '75%',
+            shape:"path:// M128 938.666667v-47.530667h381.866667V863.573333a165.802667 165.802667 0 0 1-142.144-163.648V321.706667h-23.978667v-19.456h-50.069333a42.432 42.432 0 0 0-42.304 42.304V488.810667a93.290667 93.290667 0 0 1 66.666666 89.130666v194.474667a93.12 93.12 0 0 1-68.544 89.6v28.224h-46.933333v-27.733333a93.290667 93.290667 0 0 1-70.4-90.154667v-194.325333a93.290667 93.290667 0 0 1 62.805333-87.893334v-145.493333a98.432 98.432 0 0 1 29.76-70.570667 98.389333 98.389333 0 0 1 68.885334-28.053333h50.069333v-19.2h25.706667a165.802667 165.802667 0 0 1 163.541333-141.312 165.696 165.696 0 0 1 165.269333 165.269333v379.221334h24.96v23.701333h46.4V430.165333a83.456 83.456 0 0 1 83.2-83.2 83.456 83.456 0 0 1 83.2 83.2V784.426667a83.754667 83.754667 0 0 1-70.805333 82.261333v24.64h68.544v47.530667z m714.005333-47.530667v-24.405333a83.498667 83.498667 0 0 1-72.341333-82.496v-84.330667H723.2v24.256h-26.752a165.994667 165.994667 0 0 1-139.648 139.306667v27.733333z",
+            outline: {
+                show: false
+            },
+            center: ['50%', '55%'],
 
+        }]
+    });
+    chart_liquid_composer.setOption({
+        title: {
+            text: '压缩系统-压缩机A',
+            subtext: '压缩机：',
+            textStyle: {
+                color:'#505458',
+            },
+        },
+        series: [{
+            type: 'liquidFill',
+            data: [{
+                    name: '压缩机A',
+                    value: 0.5,
+                    itemStyle: {
+                        normal: {
+                            color: '#74b9ed'
+                        }
+                    }
+                }],
+            label: {
+                normal: {
+                    textStyle: {
+                        fontSize: 15,
+                        color: '#74b9ed'
+                    }
+                }
+            },
+            backgroundStyle: {
+                shadowColor: 'rgba(0, 0, 0, 0.2)',
+                shadowBlur: 20
+            },
+            radius: '75%',
+            shape:"path:// M1247.085714 916.450743H1126.4v-161.792h80.457143c44.266057 0 80.457143-88.970971 80.457143-202.225372 0-113.225143-36.191086-202.196114-80.457143-202.196114H1126.4V228.907886c0-24.283429-16.091429-40.462629-40.228571-40.462629s-40.228571 16.1792-40.228572 40.462629v40.433371h-120.685714V204.624457l28.145371-28.320914c8.045714-8.074971 12.0832-16.149943 12.0832-28.291657V107.549257c24.137143 0 40.228571-16.149943 40.228572-40.433371 0-24.283429-16.091429-40.433371-40.228572-40.433372H643.657143c-24.137143 0-40.228571 16.1792-40.228572 40.433372 0 24.283429 16.091429 40.433371 40.228572 40.433371V148.041143c0 12.141714 4.008229 20.216686 12.0832 28.291657l28.145371 28.320914v64.7168H563.2V148.011886c0-24.283429-88.502857-40.462629-201.142857-40.462629S160.914286 123.757714 160.914286 148.041143v121.329371H80.457143C36.220343 269.341257 0 394.678857 0 552.433371c0 157.754514 36.220343 283.121371 80.457143 283.121372H160.914286v80.896H40.228571C16.091429 916.450743 0 932.600686 0 956.884114c0 24.283429 16.091429 40.433371 40.228571 40.433372h1206.857143c24.137143 0 40.228571-16.1792 40.228572-40.433372 0-24.283429-16.091429-40.433371-40.228572-40.433371zM965.485714 754.658743h-80.457143v-161.792H965.485714v161.792z m-241.371428 0v-161.792h80.457143v161.792h-80.457143z m-80.457143 0h-80.457143v-161.792H643.657143v161.792z m-80.457143 80.896h482.742857v80.896h-482.742857v-80.896z",
+            outline: {
+                show: false
+            },
+            center: ['50%', '55%'],
+
+        }]
+    });
+
+    myChart.showLoading();
+    chart_liquid.showLoading();
+    chart_liquid_mid.showLoading();
+
+    {#后端请求数据#}
+    $.ajax({
+        type: "GET",
+        url: "http://127.0.0.1:8000/time_list",
+        dataType: "json",
+        success: function (a) {
+            var time_list = a;
+            $.ajax({
+            type: "GET",
+            url: "http://127.0.0.1:8000/value_list",
+            dataType: "json",
+            success: function (a) {
+                var value_list = a;
+
+                console.log(time_list);
+                console.log(value_list);
+
+                date = time_list;
+                data = value_list;
+
+                {#请求动态数据#}
+                function addData(shift) {
+                    $.ajax({
+                        type: "GET",
+                        url: "http://127.0.0.1:8000/time/",
+                        dataType: "json",
+                        success: function (a) {
+
+                            var time = a;
+
+                            $.ajax({
+                                type: "GET",
+                                url: "http://127.0.0.1:8000/value/",
+                                dataType: "json",
+                                success: function (a) {
+                                    var value = a;
+
+                                    date.push(time);
+                                    data.push(value);
+                                    console.log(time);
+                                    console.log(value);
+
+                                    if (shift) {
+                                        date.shift();
+                                        data.shift();
+                                    }
+                                }
+                            });
+                        }
+                    });
+
+                    $.ajax({
+                        type: "GET",
+                        url: "http://127.0.0.1:8000/pre",
+                        dataType: "json",
+                        success: function (a) {
+                            volume = a["p_max"];
+                            console.log(volume);
+                            volume_p = volume/(0.767*2);
+                            volume_p = volume_p.toFixed(3);
+                        }
+                    });
+                    $.ajax({
+                        type: "GET",
+                        url: "http://127.0.0.1:8000/pre_mid",
+                        dataType: "json",
+                        success: function (a) {
+                            volume_1 = a["vol_mid"];
+                            volume_m = volume_1/(0.767*7);
+                            volume_m = volume_m.toFixed(3);
+                        }
+                    });
+                }
+
+                {#图表加载数据#}
+                myChart.setOption ({
+                    xAxis: {
+                        data: date
+                    },
+                    series: [
+                        {
+                            data: data
+                        }
+                    ]
+                });
+                chart_liquid.setOption({
+                    series: [{
+                        data: [{
+                            name: '高压罐容量',
+                            value: volume_p,
+                            itemStyle: {
+                                normal: {
+                                    color: '#74b9ed'
+                                }
+                            }
+                        }],
+                    }]
+                });
+                chart_liquid_mid.setOption({
+                    series: [{
+                        data: [{
+                            name: '中压罐容量',
+                            value: volume_m,
+                            itemStyle: {
+                                normal: {
+                                    color: '#74b9ed'
+                                }
+                            }
+                        }],
+                    }]
+                });
+
+                myChart.hideLoading();
+                chart_liquid.hideLoading();
+                chart_liquid_mid.hideLoading();
+                {#动态加载数据#}
+                setInterval(
+                    function () {
+                    addData(true);
+                    console.log(volume_p);
+                    myChart.setOption({
+                        xAxis: {
+                            data: date
+                        },
+                        series: [{
+                            data: data
+                        }]
+                    });
+                    chart_liquid.setOption({
+                        series: [{
+                            data: [{
+                                name: '高压罐容量',
+                                value: volume_p,
+                                itemStyle: {
+                                    normal: {
+                                        color: '#74b9ed'
+                                    }
+                                }
+                            }],
+                        }]
+                    });
+                    chart_liquid_mid.setOption({
+                        series: [{
+                            data: [{
+                                name: '高压罐容量',
+                                value: volume_m,
+                                itemStyle: {
+                                    normal: {
+                                        color: '#74b9ed'
+                                    }
+                                }
+                            }],
+                        }]
+                    });
+
+                }, 5000);
+                }
+            });
         }
+    });
 
-        function predata(){
-                $.ajax({
-                type: "GET",
-                url: "http://127.0.0.1:8000/pre",
-                dataType: "json",
-                success: function (a) {
-                    p_n = '实时压力:\xa0'+ a['p_n'] + ' Mpa';
-                    p_a = '平均压力:\xa0'+ a["p_a"] + ' Mpa';
-                    p_max = '最高压力:\xa0'+ a["p_max"] + ' Mpa';
-                    p_min = '最低压力:\xa0'+ a["p_min"] + ' Mpa';
-                    al = '压力报警:\xa0' + a["alert"];
-                    $("#p_n").empty();
-                    $("#p_a").empty();
-                    $("#p_max").empty();
-                    $("#p_min").empty();
-                    $("#alert").empty();
-                    $("#p_n").append(p_n);
-                    $("#p_a").append(p_a);
-                    $("#p_max").append(p_max);
-                    $("#p_min").append(p_min);
-                    $("#alert").append(al);
-
-                }
-            });
-
-                $.ajax({
-                type: "GET",
-                url: "http://127.0.0.1:8000/sto",
-                dataType: "json",
-                success: function (a) {
-                    h_p = '高压罐压力:\xa0'+ a['h_p'] + ' Mpa';
-                    h_t = '高压罐温度:\xa0'+ a["h_t"] + ' ℃';
-                    h_a = '高压罐报警:\xa0' + a["h_a"];
-                    l_p = '低压罐压力:\xa0'+ a["l_p"] + ' Mpa';
-                    l_t = '低压罐温度:\xa0'+ a["l_t"] + ' ℃';
-                    l_a = '低压罐报警:\xa0' + a["l_a"];
-                    $("#h_p").empty();
-                    $("#h_t").empty();
-                    $("#h_a").empty();
-                    $("#l_p").empty();
-                    $("#l_t").empty();
-                    $("#l_a").empty();
-                    $("#h_p").append(h_p);
-                    $("#h_t").append(h_t);
-                    $("#h_a").append(h_a);
-                    $("#l_p").append(l_p);
-                    $("#l_t").append(l_t);
-                    $("#l_a").append(l_a);
-
-                }
-            });
-
-                $.ajax({
-                type: "GET",
-                url: "http://127.0.0.1:8000/com",
-                dataType: "json",
-                success: function (a) {
-                    p_i_a = '进口压力:\xa0'+ a['p_i_a'] + ' Mpa';
-                    p_o_a = '出口压力:\xa0'+ a["p_o_a"] + ' Mpa';
-                    t_o_a = '出口温度:\xa0' + a["t_o_a"] + ' ℃';
-                    s_a = '状态:\xa0'+ a["s_a"];
-                    p_i_b = '进口压力:\xa0'+ a['p_i_b'] + ' Mpa';
-                    p_o_b = '出口压力:\xa0'+ a["p_o_b"] + ' Mpa';
-                    t_o_b = '出口温度:\xa0' + a["t_o_b"] + ' ℃';
-                    s_b = '状态:\xa0'+ a["s_b"];
-                    $("#p_i_a").empty();
-                    $("#p_o_a").empty();
-                    $("#t_o_a").empty();
-                    $("#s_a").empty();
-                    $("#p_i_b").empty();
-                    $("#p_o_b").empty();
-                    $("#t_o_b").empty();
-                    $("#s_b").empty();
-                    $("#p_i_a").append(p_i_a);
-                    $("#p_o_a").append(p_o_a);
-                    $("#t_o_a").append(t_o_a);
-                    $("#s_a").append(s_a);
-                    $("#p_i_b").append(p_i_b);
-                    $("#p_o_b").append(p_o_b);
-                    $("#t_o_b").append(t_o_b);
-                    $("#s_b").append(s_b);
-
-                }
-            });
-        }
-
-
-        function noRefresh() {
-            $.ajax({
-                type: "GET",
-                url: "http://127.0.0.1:8000/graph",
-                dataType: "json",
-                success: function (result) {
-                    var options = result.data;
-                    chart_graph.setOption(options);
-                    old_data_graph = chart_graph.getOption().series[0].data;
-                }
-            });
-        }
+    setInterval(data_reader, 5000);
+    {#读取除图表外数据#}
+    function data_reader(){
+        $.ajax({
+            type: "GET",
+            url: "http://127.0.0.1:8000/pre",
+            dataType: "json",
+            success: function (a) {
+                p_n = '实时温度:\xa0'+ a['p_n'] + ' ℃';
+                p_a = '实时压力:\xa0'+ a["p_a"] + ' Mpa';
+                p_max = '氢气储量:\xa0'+ a["p_max"] + ' m³';
+                p_min = '运行状态:\xa0'+ a["p_min"];
+                al = '状态报警:\xa0' + a["alert"];
+                volume = a["p_max"];
+                console.log(volume);
+                volume_p = volume/(0.767*2);
+                volume_p = volume_p.toFixed(3);
+                $("#p_n").empty();
+                $("#p_a").empty();
+                $("#p_max").empty();
+                $("#p_min").empty();
+                $("#alert").empty();
+                $("#p_n").append(p_n);
+                $("#p_a").append(p_a);
+                $("#p_max").append(p_max);
+                $("#p_min").append(p_min);
+                $("#alert").append(al);
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: "http://127.0.0.1:8000/pre_mid",
+            dataType: "json",
+            success: function (a) {
+                temp_mid = '实时温度:\xa0'+ a['temp_mid'] + ' ℃';
+                pre_mid = '实时压力:\xa0'+ a["pre_mid"] + ' Mpa';
+                vol_mid = '氢气储量:\xa0'+ a["vol_mid"] + ' m³';
+                state_mid = '运行状态:\xa0'+ a["state_mid"];
+                al_mid = '状态报警:\xa0' + a["al_mid"];
+                volume_1 = a["vol_mid"];
+                volume_m = volume_1/(0.767*7);
+                volume_m = volume_m.toFixed(3);
+                $("#temp_mid").empty();
+                $("#pre_mid").empty();
+                $("#vol_mid").empty();
+                $("#state_mid").empty();
+                $("#al_mid").empty();
+                $("#temp_mid").append(temp_mid);
+                $("#pre_mid").append(pre_mid);
+                $("#vol_mid").append(vol_mid);
+                $("#state_mid").append(state_mid);
+                $("#al_mid").append(al_mid);
+            }
+        });
+    }
 
     </script>
+
 {% endblock javascript %}

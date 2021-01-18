@@ -28,17 +28,6 @@ urlpatterns = [
     path('logout/', user_view.logout),
     path('dashboard/', dashboard_view.dashboard),
     path('', dashboard_view.dashboard),
-    url(r'^line/$', dashboard_view.ChartView.as_view()),
-    url(r'^line_1/$', dashboard_view.ChartView_1.as_view()),
-    url(r'^line_now/$', sensor_view.ChartView_now.as_view()),
-    url(r'^line_his/$', sensor_view.ChartView_his.as_view()),
-    url(r'^gauge/$', dashboard_view.GaugeView.as_view()),
-    url(r'^bar/$', dashboard_view.BarView.as_view()),
-    url(r'^liquid/$', dashboard_view.LiquidView.as_view()),
-    url(r'^liquid_1/$', dashboard_view.LiquidView_1.as_view()),
-    url(r'^graph/$', dashboard_view.GraphView.as_view()),
-    url(r'^multi/$', dashboard_view.MultiView.as_view()),
-    url(r'^dashboard/$', dashboard_view.IndexView.as_view()),
     url(r'^sensor_detail/(\d+)', sensor_view.sensor_detail),
     path('sensor_add/', sensor_manage_view.add),
     path('sensor_list/', sensor_manage_view.sensor_list),
@@ -47,12 +36,27 @@ urlpatterns = [
     path('sensor_list_flow/', sensor_manage_view.flow_sensor_list),
     path('sensor_list_con/', sensor_manage_view.con_sensor_list),
     path('sensor_list_ele/', sensor_manage_view.ele_sensor_list),
-    path('sensor_temp_chart/', sensor_view.sensor_temp_chart),
-    path('sensor_multi_chart/', sensor_view.sensor_multi_chart),
+    path('sensor_add/', sensor_manage_view.add),
+    path('sensor_temp_chart/', dashboard_view.sensor_temp_chart),
+    path('visual_dashboard_screen/', dashboard_view.visual_dashboard),
+
+    url(r'^time_list/$', dashboard_view.json_return_tl, name='time_list'),
+    url(r'^value_list/$', dashboard_view.json_return_vl, name='value_list'),
+
+    url(r'^time_list_2/$', dashboard_view.json_return_tl_2, name='time_list_2'),
+    url(r'^value_list_2/$', dashboard_view.json_return_vl_2, name='value_list_2'),
+
+    url(r'^time/$', dashboard_view.json_return_t, name='time'),
+    url(r'^value/$', dashboard_view.json_return_v, name='value'),
+
+    url(r'^time_list_id/$', sensor_view.return_id_tl, name='time_list_id'),
+    url(r'^value_list_id/$', sensor_view.return_id_vl, name='value_list_id'),
+    url(r'^time_id/$', sensor_view.return_id_t, name='time_id'),
+    url(r'^value_id/$', sensor_view.return_id_v, name='value_id'),
 
     url(r'^test/$', sensor_manage_view.test, name='test'),
-    url(r'^pre/$', sensor_manage_view.pressure_data, name='pre'),
-    url(r'^sto/$', sensor_manage_view.storage_data, name='sto'),
-    url(r'^com/$', sensor_manage_view.comp_data, name='com'),
+    url(r'^pre/$', dashboard_view.pressure_data, name='pre'),
+    url(r'^pre_mid/$', dashboard_view.pressure_data_mid, name='pre_mid'),
 
 ]
+
